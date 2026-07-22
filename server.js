@@ -8,11 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Express ko poori directory se static files load karne ki permission dein
 app.use(express.static(path.join(__dirname)));
 
-// MySQL Connection using Environment Variables for Security
-const db = mysql.createConnection({
+// MySQL Connection Pool (Auto-reconnects on timeout)
+const db = mysql.createPool({
     host: process.env.DB_HOST || "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
     user: process.env.DB_USER || "avnadmin",
     password: process.env.DB_PASSWORD, 
@@ -20,14 +19,19 @@ const db = mysql.createConnection({
     port: process.env.DB_PORT || 10527,
     ssl: {
         rejectUnauthorized: false
-    }
+    },
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
-db.connect((err) => {
+// Test connection pool
+db.getConnection((err, connection) => {
     if (err) {
-        console.log("Database connection failed:", err);
+        console.error("Database connection failed:", err);
     } else {
-        console.log("MySQL Cloud Database Connected Successfully!");
+        console.log("MySQL Cloud Database Pool Connected Successfully!");
+        connection.release();
     }
 });
 
