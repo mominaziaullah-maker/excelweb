@@ -27,7 +27,6 @@
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="front.html" class="text-slate-300 hover:text-white px-1 py-2 text-sm font-medium transition-colors">Calculator</a>
                     <a href="projects.html" class="text-cyan-400 border-b-2 border-cyan-400 px-1 py-2 text-sm font-medium">Saved Projects</a>
-        
                     <a href="formula.html" class="text-slate-300 hover:text-white px-1 py-2 text-sm font-medium transition-colors">Formulas & Help</a>
                 </div>
 
@@ -44,10 +43,9 @@
 
         <!-- Mobile Responsive Menu -->
         <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2">
-            <a href="index.html" class="block text-slate-300 hover:text-white text-base font-medium">Calculator</a>
+            <a href="front.html" class="block text-slate-300 hover:text-white text-base font-medium">Calculator</a>
             <a href="projects.html" class="block text-cyan-400 text-base font-medium">Saved Projects</a>
-            <a href="#" class="block text-slate-300 hover:text-white text-base font-medium">IEEE Standards</a>
-            <a href="#" class="block text-slate-300 hover:text-white text-base font-medium">Formulas & Help</a>
+            <a href="formula.html" class="block text-slate-300 hover:text-white text-base font-medium">Formulas & Help</a>
         </div>
     </nav>
 
@@ -58,7 +56,7 @@
                 <h2 class="text-xl font-semibold text-white flex items-center gap-2">
                     📁 Saved Calculations History
                 </h2>
-                <button id="btnFetchProjects" type="button" class="btn-refresh">
+                <button id="btnFetchProjects" onclick="fetchHistoryFromDatabase()" type="button" class="btn-refresh">
                     🔄 Refresh
                 </button>
             </div>
@@ -95,207 +93,92 @@
     </div>
 
     <script>
+        // Fetch calculations when page loads
+        document.addEventListener('DOMContentLoaded', fetchHistoryFromDatabase);
 
-// Fetch calculations when page loads
-document.addEventListener('DOMContentLoaded', fetchHistoryFromDatabase);
+        async function fetchHistoryFromDatabase() {
+            const tableBody = document.getElementById('projectsTableBody');
 
-
-async function fetchHistoryFromDatabase() {
-
-    const tableBody = document.getElementById('projectsTableBody');
-
-    // Show loading message first
-    tableBody.innerHTML = `
-        <tr>
-            <td colspan="5" style="text-align:center; padding:20px; color:#22d3ee;">
-                Loading calculations from MySQL Database...
-            </td>
-        </tr>
-    `;
-
-
-    try {
-
-        // Fetch data from Node.js backend
-        const response = await fetch('http://localhost:5000/api/calculations');
-
-        const data = await response.json();
-
-
-
-        if (response.ok && data.length > 0) {
-
-
-            // Remove loading message
-            tableBody.innerHTML = "";
-
-
-            // Render each calculation into the table
-            data.forEach(calc => {
-
-
-                const row = document.createElement('tr');
-
-
-                row.innerHTML = `
-
-                <td class="px-6 py-4 font-medium text-white">
-                    ${calc.project_name || 'Untitled'}
-                </td>
-
-
-                <td class="px-6 py-4 text-slate-300">
-                    ${parseFloat(calc.motor_power_hp || 0).toFixed(1)} HP
-                </td>
-
-
-                <td class="px-6 py-4 text-yellow-400 font-semibold">
-                    ${parseFloat(calc.calculated_vd_tap_percent || 0).toFixed(2)}%
-                </td>
-
-
-                <td class="px-6 py-4 text-cyan-400 font-semibold">
-                    ${parseFloat(calc.calculated_vd_100_percent || 0).toFixed(2)}%
-                </td>
-
-
-                <td class="px-6 py-4 text-right">
-
-                    <button 
-                    onclick="deleteRow(${calc.id})"
-                    class="text-red-400 hover:text-red-300 font-medium">
-
-                    Delete
-
-                    </button>
-
-                </td>
-
-                `;
-
-
-                tableBody.appendChild(row);
-
-
-            });
-
-
-        } 
-        
-        else {
-
-
+            // Show loading message
             tableBody.innerHTML = `
-
-            <tr>
-
-                <td colspan="5" 
-                style="text-align:center; padding:20px; color:#888;">
-
-                Database is empty. No calculations found.
-
-                </td>
-
-            </tr>
-
+                <tr>
+                    <td colspan="5" style="text-align:center; padding:20px; color:#22d3ee;">
+                        Loading calculations from MySQL Database...
+                    </td>
+                </tr>
             `;
 
-        }
+            try {
+                // Fetch data from Live Cloud Backend
+                const response = await fetch('https://excelweb-ezys.onrender.com/api/calculations');
+                const data = await response.json();
 
+                if (response.ok && data.length > 0) {
+                    tableBody.innerHTML = "";
 
-    } 
-    
-    catch (err) {
-
-
-        console.error("Database connection error:", err);
-
-
-        tableBody.innerHTML = `
-
-        <tr>
-
-            <td colspan="5" 
-            style="text-align:center; padding:20px; color:#ef4444; font-weight:bold;">
-
-            ❌ Unable to connect with Backend Server (Node.js). 
-            Please check that your server is running!
-
-            </td>
-
-        </tr>
-
-        `;
-
-    }
-
-}
-
-
-
-// Delete function (Removes record from MySQL database)
-
-async function deleteRow(id) {
-
-
-    if (!confirm("Are you sure you want to delete this calculation?")) 
-    return;
-
-
-
-    try {
-
-
-        const response = await fetch(
-            `http://localhost:5000/api/calculations/${id}`,
-            {
-                method: 'DELETE'
+                    data.forEach(calc => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="px-6 py-4 font-medium text-white">
+                                ${calc.project_name || 'Untitled'}
+                            </td>
+                            <td class="px-6 py-4 text-slate-300">
+                                ${parseFloat(calc.motor_power_hp || 0).toFixed(1)} HP
+                            </td>
+                            <td class="px-6 py-4 text-yellow-400 font-semibold">
+                                ${parseFloat(calc.calculated_vd_tap_percent || 0).toFixed(2)}%
+                            </td>
+                            <td class="px-6 py-4 text-cyan-400 font-semibold">
+                                ${parseFloat(calc.calculated_vd_100_percent || 0).toFixed(2)}%
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <button onclick="deleteRow(${calc.id})" class="text-red-400 hover:text-red-300 font-medium">
+                                    Delete
+                                </button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align:center; padding:20px; color:#888;">
+                                Database is empty. No calculations found.
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (err) {
+                console.error("Database connection error:", err);
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:20px; color:#ef4444; font-weight:bold;">
+                            ❌ Unable to connect with Live Backend Server.
+                        </td>
+                    </tr>
+                `;
             }
-        );
-
-
-
-        if (response.ok) {
-
-
-            alert("Calculation deleted successfully!");
-
-            // Refresh table after deletion
-            fetchHistoryFromDatabase();
-
-
-        } 
-        
-        else {
-
-
-            alert("Error occurred while deleting data from database.");
-
         }
 
+        // Delete function
+        async function deleteRow(id) {
+            if (!confirm("Are you sure you want to delete this calculation?")) return;
 
+            try {
+                const response = await fetch(`https://excelweb-ezys.onrender.com/api/calculations/${id}`, {
+                    method: 'DELETE'
+                });
 
-    } 
-    
-    catch (err) {
-
-
-        console.error("Delete error:", err);
-
-        alert("Cannot connect with server.");
-
-    }
-
-}
-
-
-
-
-
-document.getElementById("btnFetchProjects")
-.addEventListener("click", fetchHistoryFromDatabase);
-
-
-</script>
+                if (response.ok) {
+                    fetchHistoryFromDatabase();
+                } else {
+                    alert("Failed to delete record.");
+                }
+            } catch (err) {
+                console.error("Error deleting record:", err);
+                alert("Error deleting record from server.");
+            }
+        }
+    </script>
 </body>
 </html>

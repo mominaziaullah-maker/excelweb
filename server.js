@@ -1,11 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
+const path = require("path"); // Added path module
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Express ko static HTML, CSS aur client-side files serve karne ke liye setup karein
+app.use(express.static(__dirname));
 
 // MySQL Connection (Environment Variable password safety ke liye)
 const db = mysql.createConnection({
@@ -27,9 +31,9 @@ db.connect((err) => {
     }
 });
 
-// Test Route
+// Main Route (Client link par click karega toh seedha front.html khulega)
 app.get("/", (req, res) => {
-    res.send("Server is running smoothly!");
+    res.sendFile(path.join(__dirname, "front.html"));
 });
 
 // ==========================================
@@ -90,7 +94,7 @@ app.post('/api/calculate-and-save', (req, res) => {
         const req_sc_100_mva = req_vd_100 !== 0 ? (((100 - req_vd_100) * lr_mva_100) / req_vd_100) : 0;
         const req_sc_tap_mva = req_vd_tap !== 0 ? (((100 - req_vd_tap) * lr_mva_tap) / req_vd_tap) : 0;
 
-        // --- DATABASE INSERTION (Fixed 25 Columns & Values) ---
+        // --- DATABASE INSERTION ---
         const sqlQuery = `
             INSERT INTO motor_calculations 
             (
