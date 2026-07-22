@@ -7,11 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MySQL Connection (Updated for Aiven Cloud Database)
+// MySQL Connection (Environment Variable password safety ke liye)
 const db = mysql.createConnection({
     host: process.env.DB_HOST || "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
     user: process.env.DB_USER || "avnadmin",
-    password: process.env.DB_PASSWORD || "AVNS_rboiKuBz8WcBL3LOhfe", // <-- Apna Aiven Password yahan likhein
+    password: process.env.DB_PASSWORD || "", // <-- Password deployment settings se aayega
     database: process.env.DB_NAME || "defaultdb",
     port: process.env.DB_PORT || 10527,
     ssl: {
@@ -90,7 +90,7 @@ app.post('/api/calculate-and-save', (req, res) => {
         const req_sc_100_mva = req_vd_100 !== 0 ? (((100 - req_vd_100) * lr_mva_100) / req_vd_100) : 0;
         const req_sc_tap_mva = req_vd_tap !== 0 ? (((100 - req_vd_tap) * lr_mva_tap) / req_vd_tap) : 0;
 
-        // --- DATABASE INSERTION ---
+        // --- DATABASE INSERTION (Fixed 25 Columns & Values) ---
         const sqlQuery = `
             INSERT INTO motor_calculations 
             (
