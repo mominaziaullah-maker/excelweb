@@ -1,25 +1,25 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
-const path = require("path"); // Added path module
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Express ko static HTML, CSS aur client-side files serve karne ke liye setup karein
-app.use(express.static(__dirname));
+// Express ko poori root directory ki static files (CSS, JS, Images, HTML) serve karne ki permission dein
+app.use(express.static(path.join(__dirname)));
 
-// MySQL Connection (Environment Variable password safety ke liye)
+// MySQL Connection
 const db = mysql.createConnection({
     host: process.env.DB_HOST || "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
     user: process.env.DB_USER || "avnadmin",
-    password: process.env.DB_PASSWORD || "", // <-- Password deployment settings se aayega
+    password: process.env.DB_PASSWORD || "", 
     database: process.env.DB_NAME || "defaultdb",
     port: process.env.DB_PORT || 10527,
     ssl: {
-        rejectUnauthorized: false // Aiven SSL connection ke liye zaroori hai
+        rejectUnauthorized: false
     }
 });
 
@@ -31,9 +31,22 @@ db.connect((err) => {
     }
 });
 
-// Main Route (Client link par click karega toh seedha front.html khulega)
+// Main Route - Front Page
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "front.html"));
+});
+
+// Explicit Routes for HTML pages
+app.get("/front.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "front.html"));
+});
+
+app.get("/projects.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "projects.html"));
+});
+
+app.get("/formula.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "formula.html"));
 });
 
 // ==========================================
