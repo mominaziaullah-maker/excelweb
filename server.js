@@ -11,13 +11,13 @@ app.use(express.json());
 // Express ko poori directory se static files load karne ki permission dein
 app.use(express.static(path.join(__dirname)));
 
-// MySQL Connection (Direct Credentials for Vercel Fix)
+// MySQL Connection using Environment Variables for Security
 const db = mysql.createConnection({
-    host: "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
-    user: "avnadmin",
-    password: "AVNS_EOKNeXDu5WwArITUNxL", 
-    database: "defaultdb",
-    port: 10527,
+    host: process.env.DB_HOST || "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
+    user: process.env.DB_USER || "avnadmin",
+    password: process.env.DB_PASSWORD, 
+    database: process.env.DB_NAME || "defaultdb",
+    port: process.env.DB_PORT || 10527,
     ssl: {
         rejectUnauthorized: false
     }
