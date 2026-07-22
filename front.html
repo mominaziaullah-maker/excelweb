@@ -223,79 +223,82 @@
         </form>
     </div>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-
-        // Dynamic Label Updates
-        const rvatInput = document.getElementById("rvat_tap_percent");
-        function updateTapLabels() {
-            const tapVal = rvatInput.value || "Tap";
-            if(document.getElementById("vdTapLabel")) document.getElementById("vdTapLabel").innerText = `Voltage Drop @ ${tapVal}%:`;
-            if(document.getElementById("label_i_tap")) document.getElementById("label_i_tap").innerText = `I ${tapVal}%`;
-            if(document.getElementById("label_lrkva_tap")) document.getElementById("label_lrkva_tap").innerText = `LRkVA ${tapVal}%`;
-            if(document.getElementById("label_xd_tap")) document.getElementById("label_xd_tap").innerText = `X"d ${tapVal}%`;
-            if(document.getElementById("label_lrmva_tap")) document.getElementById("label_lrmva_tap").innerText = `LRMVA ${tapVal}%`;
-        }
-
-        if (rvatInput) {
-            updateTapLabels();
-            rvatInput.addEventListener("input", updateTapLabels);
-        }
-
-        // API Submission Logic (Render Cloud Live URL)
-        document.getElementById('calcForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const payload = {
-                project_name: document.getElementById('project_name').value,
-                motor_power_hp: document.getElementById('motor_power_hp').value,
-                voltage_v: document.getElementById('voltage_v').value,
-                efficiency: document.getElementById('efficiency').value,
-                power_factor: document.getElementById('power_factor').value,
-                lra_code: document.getElementById('lra_code').value,
-                rvat_tap_percent: document.getElementById('rvat_tap_percent').value,
-                req_vd_tap_percent: document.getElementById('req_vd_tap_percent').value,
-                req_vd_100_percent: document.getElementById('req_vd_100_percent').value,
-                available_sc_isc: document.getElementById('available_sc_isc').value
-            };
-
-            try {
-                const response = await fetch('https://excelweb-ezys.onrender.com/api/calculate-and-save', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    const res = data.calculatedResults;
-                    document.getElementById('res_vd_tap').innerText = res.calculated_vd_tap_percent + "%";
-                    document.getElementById('res_vd_100').innerText = res.calculated_vd_100_percent + "%";
-                    document.getElementById('res_sc_tap').innerText = res.req_sc_tap_mva + " MVA";
-                    document.getElementById('res_sc_100').innerText = res.req_sc_100_mva + " MVA";
-                    document.getElementById('res_fla').innerText = parseFloat(res.fla_amps).toFixed(0) + " A";
-                    document.getElementById('res_lra').innerText = parseFloat(res.lra_amps).toFixed(0) + " A";
-                    document.getElementById('res_kva').innerText = parseFloat(res.kva).toFixed(2) + " kVA";
-                    document.getElementById('res_lrkva').innerText = parseFloat(res.lr_kva).toFixed(0);
-                    document.getElementById('res_i_tap').innerText = parseFloat(res.i_tap).toFixed(0);
-                    document.getElementById('res_lrkva_tap').innerText = parseFloat(res.lrkva_tap).toFixed(0);
-                    document.getElementById('res_xd_tap').innerText = parseFloat(res.xd_tap).toFixed(5);
-                    document.getElementById('res_lrmva_tap').innerText = parseFloat(res.lrmva_tap).toFixed(2);
-                    document.getElementById('res_lrmva_100').innerText = parseFloat(res.lrmva_100).toFixed(2);
-                    document.getElementById('res_avail_sc_mva').innerText = parseFloat(res.available_sc_mva).toFixed(2) + " MVA";
-                } else {
-                    alert("Error: " + data.error);
-                }
-            } catch (err) {
-                console.error("Backend Connection Error: ", err);
-                alert("Could not connect to backend server!");
-            }
+   <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
-    </script>
+    }
+
+    // Dynamic Label Updates
+    const rvatInput = document.getElementById("rvat_tap_percent");
+    function updateTapLabels() {
+        const tapVal = rvatInput.value || "Tap";
+        if(document.getElementById("vdTapLabel")) document.getElementById("vdTapLabel").innerText = `Voltage Drop @ ${tapVal}%:`;
+        if(document.getElementById("label_i_tap")) document.getElementById("label_i_tap").innerText = `I ${tapVal}%`;
+        if(document.getElementById("label_lrkva_tap")) document.getElementById("label_lrkva_tap").innerText = `LRkVA ${tapVal}%`;
+        if(document.getElementById("label_xd_tap")) document.getElementById("label_xd_tap").innerText = `X"d ${tapVal}%`;
+        if(document.getElementById("label_lrmva_tap")) document.getElementById("label_lrmva_tap").innerText = `LRMVA ${tapVal}%`;
+    }
+
+    if (rvatInput) {
+        updateTapLabels();
+        rvatInput.addEventListener("input", updateTapLabels);
+    }
+
+    // API Submission Logic (Vercel Relative URL Fix)
+    document.getElementById('calcForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+            project_name: document.getElementById('project_name').value,
+            motor_power_hp: document.getElementById('motor_power_hp').value,
+            voltage_v: document.getElementById('voltage_v').value,
+            efficiency: document.getElementById('efficiency').value,
+            power_factor: document.getElementById('power_factor').value,
+            lra_code: document.getElementById('lra_code').value,
+            rvat_tap_percent: document.getElementById('rvat_tap_percent').value,
+            req_vd_tap_percent: document.getElementById('req_vd_tap_percent').value,
+            req_vd_100_percent: document.getElementById('req_vd_100_percent').value,
+            available_sc_isc: document.getElementById('available_sc_isc').value
+        };
+
+        try {
+            // Relative path used taake Vercel server par direct hit kare
+            const response = await fetch('/api/calculate-and-save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                const res = data.calculatedResults;
+                document.getElementById('res_vd_tap').innerText = res.calculated_vd_tap_percent + "%";
+                document.getElementById('res_vd_100').innerText = res.calculated_vd_100_percent + "%";
+                document.getElementById('res_sc_tap').innerText = res.req_sc_tap_mva + " MVA";
+                document.getElementById('res_sc_100').innerText = res.req_sc_100_mva + " MVA";
+                document.getElementById('res_fla').innerText = parseFloat(res.fla_amps).toFixed(0) + " A";
+                document.getElementById('res_lra').innerText = parseFloat(res.lra_amps).toFixed(0) + " A";
+                document.getElementById('res_kva').innerText = parseFloat(res.kva).toFixed(2) + " kVA";
+                document.getElementById('res_lrkva').innerText = parseFloat(res.lr_kva).toFixed(0);
+                document.getElementById('res_i_tap').innerText = parseFloat(res.i_tap).toFixed(0);
+                document.getElementById('res_lrkva_tap').innerText = parseFloat(res.lrkva_tap).toFixed(0);
+                document.getElementById('res_xd_tap').innerText = parseFloat(res.xd_tap).toFixed(5);
+                document.getElementById('res_lrmva_tap').innerText = parseFloat(res.lrmva_tap).toFixed(2);
+                document.getElementById('res_lrmva_100').innerText = parseFloat(res.lrmva_100).toFixed(2);
+                document.getElementById('res_avail_sc_mva').innerText = parseFloat(res.available_sc_mva).toFixed(2) + " MVA";
+                
+                alert("Calculation saved successfully!");
+            } else {
+                alert("Error: " + data.error);
+            }
+        } catch (err) {
+            console.error("Backend Connection Error: ", err);
+            alert("Could not connect to backend server!");
+        }
+    });
+</script>
 </body>
 </html>
