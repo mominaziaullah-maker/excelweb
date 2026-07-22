@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Express ko poori root directory ki static files (CSS, JS, Images, HTML) serve karne ki permission dein
+// Express ko poori directory se static files (style.css, formula.css, JS, images) load karne ki permission dein
 app.use(express.static(path.join(__dirname)));
 
 // MySQL Connection
@@ -31,38 +31,38 @@ db.connect((err) => {
     }
 });
 
-// Main Route - Front Page
+// Routes for HTML Pages
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "front.html"));
+    res.sendFile(path.resolve(__dirname, "front.html"));
 });
 
-// Explicit Routes for HTML pages
 app.get("/front.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "front.html"));
+    res.sendFile(path.resolve(__dirname, "front.html"));
 });
 
 app.get("/projects.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "projects.html"));
+    res.sendFile(path.resolve(__dirname, "projects.html"));
 });
 
 app.get("/formula.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "formula.html"));
+    res.sendFile(path.resolve(__dirname, "formula.html"));
+});
+
+// Explicit Routes for BOTH CSS files (Vercel deployment ke liye)
+app.get("/style.css", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "style.css"));
+});
+
+app.get("/formula.css", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "formula.css"));
 });
 
 // ==========================================
 // 1. Calculation & Save API Endpoint (POST)
 app.post('/api/calculate-and-save', (req, res) => {
     const {
-        project_name,
-        motor_power_hp,
-        voltage_v,
-        efficiency,
-        power_factor,
-        lra_code,
-        rvat_tap_percent,
-        req_vd_tap_percent,
-        req_vd_100_percent,
-        available_sc_isc
+        project_name, motor_power_hp, voltage_v, efficiency, power_factor,
+        lra_code, rvat_tap_percent, req_vd_tap_percent, req_vd_100_percent, available_sc_isc
     } = req.body;
 
     try {
@@ -80,7 +80,6 @@ app.post('/api/calculate-and-save', (req, res) => {
             return res.status(400).json({ error: "Voltage, Efficiency, and Power Factor cannot be zero." });
         }
 
-        // --- MATH CALCULATIONS ---
         const fla_amps = (hp * 746) / (volt * eff * pf * Math.sqrt(3));
         const lra_amps = fla_amps * lra_c;
         const kva = (volt * fla_amps * Math.sqrt(3)) / 1000;
@@ -107,7 +106,6 @@ app.post('/api/calculate-and-save', (req, res) => {
         const req_sc_100_mva = req_vd_100 !== 0 ? (((100 - req_vd_100) * lr_mva_100) / req_vd_100) : 0;
         const req_sc_tap_mva = req_vd_tap !== 0 ? (((100 - req_vd_tap) * lr_mva_tap) / req_vd_tap) : 0;
 
-        // --- DATABASE INSERTION ---
         const sqlQuery = `
             INSERT INTO motor_calculations 
             (
@@ -133,7 +131,7 @@ app.post('/api/calculate-and-save', (req, res) => {
         db.query(sqlQuery, values, (err, result) => {
             if (err) {
                 console.error("Database Save Error Details:", err);
-                return res.status(500).json({ error: "Database saving failed! Check terminal logs." });
+                return res.status(500).json({ error: "Database saving failed!" });
             }
             res.json({ 
                 message: "Calculation saved successfully!", 
@@ -163,31 +161,21 @@ app.post('/api/calculate-and-save', (req, res) => {
     }
 });
 
-// ==========================================
 // 2. Fetch Calculations History (GET)
 app.get('/api/calculations', (req, res) => {
     const sqlQuery = "SELECT * FROM motor_calculations ORDER BY created_at DESC";
-    
     db.query(sqlQuery, (err, results) => {
-        if (err) {
-            console.error("Fetch Data Error:", err);
-            return res.status(500).json({ error: "Database se records fetch nahi ho sake." });
-        }
+        if (err) return res.status(500).json({ error: "Database fetch failed." });
         res.json(results);
     });
 });
 
-// ==========================================
 // 3. Delete Calculation Endpoint (DELETE)
 app.delete('/api/calculations/:id', (req, res) => {
     const recordId = req.params.id;
     const sqlQuery = "DELETE FROM motor_calculations WHERE id = ?";
-    
     db.query(sqlQuery, [recordId], (err, result) => {
-        if (err) {
-            console.error("Delete Record Error:", err);
-            return res.status(500).json({ error: "Record delete nahi ho saka." });
-        }
+        if (err) return res.status(500).json({ error: "Record delete failed." });
         res.json({ message: "Record deleted successfully!" });
     });
 });
