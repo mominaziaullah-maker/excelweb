@@ -8,16 +8,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Express ko poori directory se static files (style.css, formula.css, JS, images) load karne ki permission dein
+// Express ko poori directory se static files load karne ki permission dein
 app.use(express.static(path.join(__dirname)));
 
-// MySQL Connection
+// MySQL Connection (Direct Credentials for Vercel Fix)
 const db = mysql.createConnection({
-    host: process.env.DB_HOST || "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
-    user: process.env.DB_USER || "avnadmin",
-    password: process.env.DB_PASSWORD || "", 
-    database: process.env.DB_NAME || "defaultdb",
-    port: process.env.DB_PORT || 10527,
+    host: "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
+    user: "avnadmin",
+    password: "APNA_NAYA_PASSWORD_YAHAN_LIKHEIN", 
+    database: "defaultdb",
+    port: 10527,
     ssl: {
         rejectUnauthorized: false
     }
@@ -48,7 +48,7 @@ app.get("/formula.html", (req, res) => {
     res.sendFile(path.resolve(__dirname, "formula.html"));
 });
 
-// Explicit Routes for BOTH CSS files (Vercel deployment ke liye)
+// Explicit Routes for CSS files
 app.get("/style.css", (req, res) => {
     res.sendFile(path.resolve(__dirname, "style.css"));
 });
@@ -131,7 +131,7 @@ app.post('/api/calculate-and-save', (req, res) => {
         db.query(sqlQuery, values, (err, result) => {
             if (err) {
                 console.error("Database Save Error Details:", err);
-                return res.status(500).json({ error: "Database saving failed!" });
+                return res.status(500).json({ error: "Database saving failed: " + err.message });
             }
             res.json({ 
                 message: "Calculation saved successfully!", 
