@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE Standards - MOTO-CALC</title>
+    <link rel="stylesheet" href="ieee.css">
+    <!-- FontAwesome Icons ke liye link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+   <!-- IEEE Standards Page ka Perfect Navbar (Combined Link) -->
+<header class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-bolt logo-icon"></i>
+        <span>MOTO-CALC</span>
+    </div>
+    <nav class="nav-links">
+        <a href="front.html">Calculator</a>
+        <a href="projects.html">Saved Projects</a>
+        <a href="ieee.html" class="active">IEEE Standards</a>
+        <a href="formula.html">Formulas & Help</a> <!-- Agar alag page hai to, nahi to isko index.html#formulas-help bhi kar sakti hain -->
+    </nav>
+</header>
+
+    <!-- Main Container -->
+    <main class="container">
+        
+        <!-- Page Title Section -->
+        <section class="title-section">
+            <h1><i class="fa-solid fa-book-bookmark icon-yellow"></i> IEEE Standards & Guidelines</h1>
+            <p>Industrial electrical design standards for motor starting analysis and voltage drop limitations.</p>
+        </section>
+
+        <!-- Standards Cards Grid -->
+        <section class="standards-grid">
+            
+            <!-- Card 1: IEEE 141 -->
+            <div class="standard-card">
+                <div class="card-header">
+                    <h3>IEEE 141 (Red Book)</h3>
+                    <span class="badge badge-cyan">Voltage Drop</span>
+                </div>
+                <p class="card-desc">Recommended practice for electric power distribution in industrial plants. It defines the safe limits of voltage drops.</p>
+                <ul class="card-points">
+                    <li><i class="fa-solid fa-circle-check text-cyan"></i> <strong>Normal Running:</strong> Max 3% to 5% voltage drop at motor terminals.</li>
+                    <li><i class="fa-solid fa-circle-check text-cyan"></i> <strong>Motor Starting:</strong> Temporary drop up to 10% to 15% is acceptable.</li>
+                </ul>
+            </div>
+
+            <!-- Card 2: IEEE 399 -->
+            <div class="standard-card">
+                <div class="card-header">
+                    <h3>IEEE 399 (Brown Book)</h3>
+                    <span class="badge badge-yellow">Power Systems</span>
+                </div>
+                <p class="card-desc">Guidelines for detailed power system studies, specifically focusing on transient and static motor starting analysis.</p>
+                <ul class="card-points">
+                    <li><i class="fa-solid fa-circle-check text-yellow"></i> <strong>Inrush Current:</strong> Explains how LRA causes severe system voltage dips.</li>
+                    <li><i class="fa-solid fa-circle-check text-yellow"></i> <strong>Mitigation:</strong> Recommends using RVAT (Auto-Transformer) starters to limit dip.</li>
+                </ul>
+            </div>
+
+            <!-- Card 3: NEMA MG 1 -->
+            <div class="standard-card">
+                <div class="card-header">
+                    <h3>NEMA MG 1 / IEEE</h3>
+                    <span class="badge badge-magenta">Motor Torque</span>
+                </div>
+                <p class="card-desc">Defines standard performance characteristics, including voltage variation limits for electric motors.</p>
+                <ul class="card-points">
+                    <li><i class="fa-solid fa-circle-check text-magenta"></i> <strong>Tolerance:</strong> Motors are rated to operate within ±10% of rated voltage.</li>
+                    <li><i class="fa-solid fa-circle-check text-magenta"></i> <strong>Torque Impact:</strong> Starting torque drops quadratically ($Torque \propto V^2$) if voltage is too low.</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- Quick Reference Table Section -->
+        <section class="table-section">
+            <h2>Quick Reference: Voltage Drop Severity</h2>
+            <div class="table-wrapper">
+                <table class="reference-table">
+                    <thead>
+                        <tr>
+                            <th>Voltage Drop (%)</th>
+                            <th>Severity Status</th>
+                            <th>Recommended Action / Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-white">0% - 3%</td>
+                            <td><span class="status-btn status-excellent">Excellent</span></td>
+                            <td>Ideal condition for continuous running of industrial motors.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-white">3% - 5%</td>
+                            <td><span class="status-btn status-good">Good</span></td>
+                            <td>Acceptable running limit under standard industrial practices.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-white">5% - 10%</td>
+                            <td><span class="status-btn status-warning">Warning</span></td>
+                            <td>Acceptable strictly during motor starting, but critical for continuous run.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-white">&gt; 15%</td>
+                            <td><span class="status-btn status-critical">Critical</span></td>
+                            <td>Motor may fail to start or trip. Reduced Voltage Starter (RVAT) is highly recommended.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Link -->
+    <footer class="footer">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Calculator</a>
+    </footer>
+
+</body>
+</html>

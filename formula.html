@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulas & Help - MOTO-CALC</title>
+    <link rel="stylesheet" href="formula.css">
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-bolt logo-icon"></i>
+            <span>MOTO-CALC</span>
+        </div>
+        <nav class="nav-links">
+            <a href="front.html">Calculator</a>
+            <a href="projects.html">Saved Projects</a>
+
+            <a href="formula.html" class="active">Formulas & Help</a>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        
+        <!-- Page Header -->
+        <section class="title-section">
+            <h1><i class="fa-solid fa-calculator icon-yellow"></i> Formulas & Help Center</h1>
+            <p>Understand the engineering math behind MOTO-CALC and get quick answers to your questions.</p>
+        </section>
+
+        <!-- 1. FORMULAS SECTION -->
+        <section class="help-section-block">
+            <h2 class="section-title"><i class="fa-solid fa-square-root-variable text-cyan"></i> Calculation Formulas</h2>
+            
+            <div class="formulas-grid">
+                <!-- Formula Card 1 -->
+                <div class="formula-card">
+                    <div class="formula-header">
+                        <h4>Full Load Amps (FLA)</h4>
+                        <span class="unit-badge">Amperes</span>
+                    </div>
+                    <div class="equation-box">
+                        FLA = (HP × 746) / (V × Eff × PF × √3)
+                    </div>
+                    <p class="formula-details">
+                        Calculates the continuous current drawn by the motor during normal operating conditions at full load.
+                    </p>
+                </div>
+
+                <!-- Formula Card 2 -->
+                <div class="formula-card">
+                    <div class="formula-header">
+                        <h4>Locked Rotor Amps (LRA)</h4>
+                        <span class="unit-badge">Amperes</span>
+                    </div>
+                    <div class="equation-box">
+                        LRA = FLA × LRA Code Multiplier
+                    </div>
+                    <p class="formula-details">
+                        The maximum current drawn by the motor during start-up when the rotor is stationary (locked).
+                    </p>
+                </div>
+
+                <!-- Formula Card 3 -->
+                <div class="formula-card">
+                    <div class="formula-header">
+                        <h4>Short Circuit MVA (MVAsc)</h4>
+                        <span class="unit-badge">MVA</span>
+                    </div>
+                    <div class="equation-box">
+                        MVAsc = (Isc × √3 × kV) / 1000
+                    </div>
+                    <p class="formula-details">
+                        The available short-circuit capacity of the utility/transformer at the point of connection.
+                    </p>
+                </div>
+
+                <!-- Formula Card 4 -->
+                <div class="formula-card">
+                    <div class="formula-header">
+                        <h4>Voltage Drop % (VD)</h4>
+                        <span class="unit-badge">Percentage (%)</span>
+                    </div>
+                    <div class="equation-box">
+                        VD% = [LR MVA / (LR MVA + MVAsc)] × 100
+                    </div>
+                    <p class="formula-details">
+                        The temporary voltage drop (sag) at the system busbar during motor start-up.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. HELP / FAQ SECTION -->
+        <section class="help-section-block">
+            <h2 class="section-title"><i class="fa-solid fa-circle-question icon-yellow"></i> Frequently Asked Questions</h2>
+            
+            <div class="faq-list">
+                <!-- FAQ Item 1 -->
+                <div class="faq-card">
+                    <h4 class="faq-question">What is LRA Code Multiplier?</h4>
+                    <p class="faq-answer">
+                        NEMA standards specify letter codes (A to V) on motor nameplates that represent the starting kVA per HP. If you don't know the code, a standard industry default starting multiplier is <strong>6.0</strong> (meaning starting current is 6 times the normal FLA).
+                    </p>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-card">
+                    <h4 class="faq-question">How does RVAT Tap % affect Voltage Drop?</h4>
+                    <p class="faq-answer">
+                        A Reduced Voltage Auto-Transformer (RVAT) starter reduces the starting voltage at the motor terminals. For example, using an <strong>80% tap</strong> reduces starting current to 64% ($(0.8)^2$) and significantly lowers the system voltage drop.
+                    </p>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-card">
+                    <h4 class="faq-question">What is Available SC Isc?</h4>
+                    <p class="faq-answer">
+                        It is the maximum prospective Short Circuit Current (in Amperes) that the power supply network can deliver at your installation bus. A higher short-circuit capacity means a "stronger" grid with less voltage drop.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="front.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Calculator</a>
+    </footer>
+
+</body>
+</html>

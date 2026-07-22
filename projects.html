@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Projects - Moto Calc</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Separated Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-body min-h-screen text-slate-100">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Brand Name -->
+                <a href="front.html" class="flex items-center space-x-3">
+                    <span class="text-2xl">⚡</span>
+                    <span class="font-bold text-lg tracking-wider bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                        MOTO-CALC
+                    </span>
+                </a>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="front.html" class="text-slate-300 hover:text-white px-1 py-2 text-sm font-medium transition-colors">Calculator</a>
+                    <a href="projects.html" class="text-cyan-400 border-b-2 border-cyan-400 px-1 py-2 text-sm font-medium">Saved Projects</a>
+        
+                    <a href="formula.html" class="text-slate-300 hover:text-white px-1 py-2 text-sm font-medium transition-colors">Formulas & Help</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-slate-400 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Responsive Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block text-slate-300 hover:text-white text-base font-medium">Calculator</a>
+            <a href="projects.html" class="block text-cyan-400 text-base font-medium">Saved Projects</a>
+            <a href="#" class="block text-slate-300 hover:text-white text-base font-medium">IEEE Standards</a>
+            <a href="#" class="block text-slate-300 hover:text-white text-base font-medium">Formulas & Help</a>
+        </div>
+    </nav>
+
+    <!-- Main Container for Table -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div class="input-card space-y-6">
+            <div class="border-b border-slate-700 pb-3 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+                    📁 Saved Calculations History
+                </h2>
+                <button id="btnFetchProjects" type="button" class="btn-refresh">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <!-- Responsive Table -->
+            <div class="overflow-x-auto rounded-lg border border-slate-800">
+                <table class="min-w-full divide-y divide-slate-800 text-left text-sm text-slate-300">
+                    <thead class="bg-slate-900/80 text-xs uppercase text-slate-400 font-semibold tracking-wider">
+                        <tr>
+                            <th class="px-6 py-4">Project Name</th>
+                            <th class="px-6 py-4">Mtr Power (HP)</th>
+                            <th class="px-6 py-4">VD @ Tap %</th>
+                            <th class="px-6 py-4">VD @ 100%</th>
+                            <th class="px-6 py-4 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectsTableBody" class="divide-y divide-slate-800 bg-slate-900/30">
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-slate-500">
+                                Loading saved projects...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Back to Home Button -->
+            <div class="pt-4">
+                <a href="front.html" class="back-link">
+                    ← Back to Calculator
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+// Fetch calculations when page loads
+document.addEventListener('DOMContentLoaded', fetchHistoryFromDatabase);
+
+
+async function fetchHistoryFromDatabase() {
+
+    const tableBody = document.getElementById('projectsTableBody');
+
+    // Show loading message first
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="5" style="text-align:center; padding:20px; color:#22d3ee;">
+                Loading calculations from MySQL Database...
+            </td>
+        </tr>
+    `;
+
+
+    try {
+
+        // Fetch data from Node.js backend
+        const response = await fetch('http://localhost:5000/api/calculations');
+
+        const data = await response.json();
+
+
+
+        if (response.ok && data.length > 0) {
+
+
+            // Remove loading message
+            tableBody.innerHTML = "";
+
+
+            // Render each calculation into the table
+            data.forEach(calc => {
+
+
+                const row = document.createElement('tr');
+
+
+                row.innerHTML = `
+
+                <td class="px-6 py-4 font-medium text-white">
+                    ${calc.project_name || 'Untitled'}
+                </td>
+
+
+                <td class="px-6 py-4 text-slate-300">
+                    ${parseFloat(calc.motor_power_hp || 0).toFixed(1)} HP
+                </td>
+
+
+                <td class="px-6 py-4 text-yellow-400 font-semibold">
+                    ${parseFloat(calc.calculated_vd_tap_percent || 0).toFixed(2)}%
+                </td>
+
+
+                <td class="px-6 py-4 text-cyan-400 font-semibold">
+                    ${parseFloat(calc.calculated_vd_100_percent || 0).toFixed(2)}%
+                </td>
+
+
+                <td class="px-6 py-4 text-right">
+
+                    <button 
+                    onclick="deleteRow(${calc.id})"
+                    class="text-red-400 hover:text-red-300 font-medium">
+
+                    Delete
+
+                    </button>
+
+                </td>
+
+                `;
+
+
+                tableBody.appendChild(row);
+
+
+            });
+
+
+        } 
+        
+        else {
+
+
+            tableBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="5" 
+                style="text-align:center; padding:20px; color:#888;">
+
+                Database is empty. No calculations found.
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+
+
+    } 
+    
+    catch (err) {
+
+
+        console.error("Database connection error:", err);
+
+
+        tableBody.innerHTML = `
+
+        <tr>
+
+            <td colspan="5" 
+            style="text-align:center; padding:20px; color:#ef4444; font-weight:bold;">
+
+            ❌ Unable to connect with Backend Server (Node.js). 
+            Please check that your server is running!
+
+            </td>
+
+        </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+// Delete function (Removes record from MySQL database)
+
+async function deleteRow(id) {
+
+
+    if (!confirm("Are you sure you want to delete this calculation?")) 
+    return;
+
+
+
+    try {
+
+
+        const response = await fetch(
+            `http://localhost:5000/api/calculations/${id}`,
+            {
+                method: 'DELETE'
+            }
+        );
+
+
+
+        if (response.ok) {
+
+
+            alert("Calculation deleted successfully!");
+
+            // Refresh table after deletion
+            fetchHistoryFromDatabase();
+
+
+        } 
+        
+        else {
+
+
+            alert("Error occurred while deleting data from database.");
+
+        }
+
+
+
+    } 
+    
+    catch (err) {
+
+
+        console.error("Delete error:", err);
+
+        alert("Cannot connect with server.");
+
+    }
+
+}
+
+
+
+
+
+document.getElementById("btnFetchProjects")
+.addEventListener("click", fetchHistoryFromDatabase);
+
+
+</script>
+</body>
+</html>

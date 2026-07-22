@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Starting Voltage Drop Calculator</title>
+    <!-- Tailwind CSS (for layout utilities only, custom CSS handles colors/styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Separated Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#0e1116] min-h-screen text-slate-300 font-sans">
+
+    <!-- NEW CLEAN NAVIGATION BAR -->
+    <nav class="border-b border-slate-800 bg-[#161b22]/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo & Brand Name -->
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl text-slate-400">⚡</span>
+                    <span class="font-bold text-base tracking-wider text-white">
+                        MOTO-CALC
+                    </span>
+                </div>
+                
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-white border-b-2 border-slate-400 px-1 py-2 text-sm font-medium">Calculator</a>
+                    <a href="projects.html" class="text-slate-400 hover:text-white px-1 py-2 text-sm font-medium transition-colors">Saved Projects</a>
+                    <a href="formula.html" class="text-slate-400 hover:text-white px-1 py-2 text-sm font-medium transition-colors">Formulas & Help</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-slate-400 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Responsive Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#161b22] border-b border-slate-800 px-4 pt-2 pb-4 space-y-2">
+            <a href="#" class="block text-white text-base font-medium">Calculator</a>
+            <a href="projects.html" class="block text-slate-400 hover:text-white text-base font-medium">Saved Projects</a>
+            <a href="formula.html" class="block text-slate-400 hover:text-white text-base font-medium">Formulas & Help</a>
+        </div>
+    </nav>
+
+    <!-- Main Wrapper Container -->
+    <div class="main-container mt-6">
+        
+        <!-- Header -->
+        <div class="mb-8 text-center md:text-left">
+            <h1 class="text-2xl font-semibold text-white tracking-wide">Voltage Drop & Short Circuit Calculator</h1>
+          
+        </div>
+
+        <!-- Form & Results Grid Layout -->
+        <form id="calcForm" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- LEFT COLUMN: Input Parameters Form -->
+            <div class="lg:col-span-7 input-card space-y-6">
+                <div class="border-b border-slate-800 pb-3">
+                    <h2 class="text-lg font-medium text-white">Input Parameters</h2>
+                </div>
+
+                <!-- Project Context -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Project Name</label>
+                        <input type="text" id="project_name" required placeholder="Linde Plant" class="custom-input">
+                    </div>
+                </div>
+
+                <!-- Motor Specifications Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Mtr Power (HP)</label>
+                        <input type="number" id="motor_power_hp" step="any" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Voltage (V)</label>
+                        <input type="number" id="voltage_v" step="any" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Efficiency (Eff)</label>
+                        <input type="number" id="efficiency" step="0.001" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">P.F (Power Factor)</label>
+                        <input type="number" id="power_factor" step="0.001" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">LRA Code</label>
+                        <input type="number" id="lra_code" step="0.01" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">RVAT Tap (%)</label>
+                        <input type="number" id="rvat_tap_percent" step="any" required class="custom-input">
+                    </div>
+                </div>
+
+                <!-- Short Circuit & Required Target Details -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-slate-800 pt-4">
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Req. VD @ Tap (%)</label>
+                        <input type="number" id="req_vd_tap_percent" step="any" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Req. VD @ 100% (%)</label>
+                        <input type="number" id="req_vd_100_percent" step="any" required class="custom-input">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Available SC Isc (A)</label>
+                        <input type="number" id="available_sc_isc" step="any" required class="custom-input">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-calculate">
+                    Calculate & View Full Results
+                </button>
+            </div>
+
+            <!-- RIGHT COLUMN: Dashboard & Live Outputs -->
+            <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+                
+                <!-- Results Output Card -->
+                <div class="results-dashboard p-6">
+                    <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-4 border-b border-slate-800 pb-2">Calculated Results Dashboard</span>
+                    
+                    <div id="resultsSection" class="space-y-6">
+                        
+                        <!-- Top Level: Voltage Drop Outputs -->
+                        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-4">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase block mb-1" id="vdTapLabel">Voltage Drop @ Tap%:</span>
+                                <div class="text-2xl font-semibold text-amber-500/90" id="res_vd_tap">--%</div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase block mb-1">Voltage Drop @ 100%:</span>
+                                <div class="text-2xl font-semibold text-amber-500/90" id="res_vd_100">--%</div>
+                            </div>
+                        </div>
+
+                        <!-- Target Short Circuit Capacity Requirement -->
+                        <div class="grid grid-cols-2 gap-4 border-b border-slate-800 pb-4">
+                            <div>
+                                <span class="block text-[10px] uppercase text-slate-500 mb-0.5">Req. SC @ Tap</span>
+                                <strong id="res_sc_tap" class="text-base font-medium text-slate-200">-- MVA</strong>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] uppercase text-slate-500 mb-0.5">Req. SC @ 100%</span>
+                                <strong id="res_sc_100" class="text-base font-medium text-slate-200">-- MVA</strong>
+                            </div>
+                        </div>
+
+                        <!-- Motor Parameters Data Grid -->
+                        <div class="space-y-3 border-b border-slate-800 pb-4">
+                            <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Motor Parameters</span>
+                            
+                            <div class="grid grid-cols-3 gap-y-3 gap-x-2 text-xs">
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500">FLA</span>
+                                    <strong id="res_fla" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500">LRA</span>
+                                    <strong id="res_lra" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500">kVA</span>
+                                    <strong id="res_kva" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500">LRkVA</span>
+                                    <strong id="res_lrkva" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500" id="label_i_tap">I Tap%</span>
+                                    <strong id="res_i_tap" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500" id="label_lrkva_tap">LRkVA Tap%</span>
+                                    <strong id="res_lrkva_tap" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500" id="label_xd_tap">X"d Tap%</span>
+                                    <strong id="res_xd_tap" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500" id="label_lrmva_tap">LRMVA Tap%</span>
+                                    <strong id="res_lrmva_tap" class="text-slate-300">--</strong>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase text-slate-500">LRMVA 100%</span>
+                                    <strong id="res_lrmva_100" class="text-slate-300">--</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Available Short Circuit MVA -->
+                        <div class="pt-2">
+                            <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-2">System Parameters</span>
+                            <div class="bg-[#0e1116] border border-slate-800 p-3 rounded flex justify-between items-center">
+                                <span class="text-xs text-slate-400 uppercase font-medium">Available SC MVA</span>
+                                <strong id="res_avail_sc_mva" class="text-base font-semibold text-white">-- MVA</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer branding -->
+                <div class="text-center lg:text-left text-[11px] text-slate-500 space-y-0.5">
+                    <p class="font-medium text-slate-400">motor-calculations.com</p>
+                   
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Dynamic Label Updates
+        const rvatInput = document.getElementById("rvat_tap_percent");
+        function updateTapLabels() {
+            const tapVal = rvatInput.value || "Tap";
+            if(document.getElementById("vdTapLabel")) document.getElementById("vdTapLabel").innerText = `Voltage Drop @ ${tapVal}%:`;
+            if(document.getElementById("label_i_tap")) document.getElementById("label_i_tap").innerText = `I ${tapVal}%`;
+            if(document.getElementById("label_lrkva_tap")) document.getElementById("label_lrkva_tap").innerText = `LRkVA ${tapVal}%`;
+            if(document.getElementById("label_xd_tap")) document.getElementById("label_xd_tap").innerText = `X"d ${tapVal}%`;
+            if(document.getElementById("label_lrmva_tap")) document.getElementById("label_lrmva_tap").innerText = `LRMVA ${tapVal}%`;
+        }
+
+        if (rvatInput) {
+            updateTapLabels();
+            rvatInput.addEventListener("input", updateTapLabels);
+        }
+
+        // API Submission Logic
+        document.getElementById('calcForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                project_name: document.getElementById('project_name').value,
+                motor_power_hp: document.getElementById('motor_power_hp').value,
+                voltage_v: document.getElementById('voltage_v').value,
+                efficiency: document.getElementById('efficiency').value,
+                power_factor: document.getElementById('power_factor').value,
+                lra_code: document.getElementById('lra_code').value,
+                rvat_tap_percent: document.getElementById('rvat_tap_percent').value,
+                req_vd_tap_percent: document.getElementById('req_vd_tap_percent').value,
+                req_vd_100_percent: document.getElementById('req_vd_100_percent').value,
+                available_sc_isc: document.getElementById('available_sc_isc').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/calculate-and-save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    const res = data.calculatedResults;
+                    document.getElementById('res_vd_tap').innerText = res.calculated_vd_tap_percent + "%";
+                    document.getElementById('res_vd_100').innerText = res.calculated_vd_100_percent + "%";
+                    document.getElementById('res_sc_tap').innerText = res.req_sc_tap_mva + " MVA";
+                    document.getElementById('res_sc_100').innerText = res.req_sc_100_mva + " MVA";
+                    document.getElementById('res_fla').innerText = parseFloat(res.fla_amps).toFixed(0) + " A";
+                    document.getElementById('res_lra').innerText = parseFloat(res.lra_amps).toFixed(0) + " A";
+                    document.getElementById('res_kva').innerText = parseFloat(res.kva).toFixed(2) + " kVA";
+                    document.getElementById('res_lrkva').innerText = parseFloat(res.lr_kva).toFixed(0);
+                    document.getElementById('res_i_tap').innerText = parseFloat(res.i_tap).toFixed(0);
+                    document.getElementById('res_lrkva_tap').innerText = parseFloat(res.lrkva_tap).toFixed(0);
+                    document.getElementById('res_xd_tap').innerText = parseFloat(res.xd_tap).toFixed(5);
+                    document.getElementById('res_lrmva_tap').innerText = parseFloat(res.lrmva_tap).toFixed(2);
+                    document.getElementById('res_lrmva_100').innerText = parseFloat(res.lrmva_100).toFixed(2);
+                    document.getElementById('res_avail_sc_mva').innerText = parseFloat(res.available_sc_mva).toFixed(2) + " MVA";
+                } else {
+                    alert("Error: " + data.error);
+                }
+            } catch (err) {
+                console.error("Backend Connection Error: ", err);
+                alert("Could not connect to backend server!");
+            }
+        });
+    </script>
+</body>
+</html>

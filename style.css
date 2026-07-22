@@ -1,0 +1,189 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Base Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0e1116;
+    min-height: 100vh;
+    padding: 0 0 1rem 0; 
+}
+
+/* Modern Professional Container */
+.main-container {
+    width: 100%;
+    max-width: 72rem;
+    margin: 1.5rem auto; 
+    background-color: #161b22;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid #21262d;
+}
+
+/* Screen adjustments for mobile layout */
+@media (max-width: 768px) {
+    .main-container {
+        width: 94%;
+        margin-top: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .main-container { 
+        padding: 2rem; 
+        margin-top: 2rem;
+    }
+}
+
+/* ========================================================
+   LIGHT GREY GRADIENT CARDS (INPUTS & RESULTS DASHBOARD)
+   ======================================================== */
+
+.input-card, .results-dashboard {
+    /* Soft Metallic Light Grey Gradient */
+    background: linear-gradient(145deg, #2d333b 0%, #22272e 100%) !important;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid #444c56 !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Cards ke andar ki text aur labels ko bright light metallic tone diya hai */
+.input-card label, 
+.input-card h2, 
+.input-card h3,
+.results-dashboard h2, 
+.results-dashboard h3,
+.results-dashboard span,
+.results-dashboard p {
+    color: #f0f6fc !important;
+}
+
+/* Inputs Inside the Light Grey Card */
+.custom-input, .custom-select {
+    width: 100%;
+    background-color: #1c2128 !important;
+    color: #ffffff !important;
+    border: 1px solid #444c56 !important;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem; 
+    margin-top: 0.25rem;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-input::placeholder {
+    color: #768390 !important;
+}
+
+.custom-input:focus, .custom-select:focus {
+    outline: none;
+    border-color: #adbac7 !important;
+    box-shadow: 0 0 0 2px rgba(173, 186, 199, 0.2) !important;
+}
+
+/* Professional Light Grey Accent Calculate Button */
+.btn-calculate {
+    width: 100%;
+    background: linear-gradient(135deg, #444c56 0%, #30363d 100%) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    padding: 0.75rem; 
+    border-radius: 0.375rem;
+    border: 1px solid #636e7b !important;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-calculate:hover {
+    background: linear-gradient(135deg, #636e7b 0%, #444c56 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-calculate:active { 
+    transform: scale(0.99); 
+}
+
+/* System Parameters Box (Inside Results) */
+.system-param-box {
+    background: #1c2128 !important;
+    border: 1px solid #444c56 !important;
+    border-radius: 0.375rem;
+}
+
+/* ======================================================== */
+
+/* Table Scrollbar Customization for Saved Projects Page */
+.overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #30363d #0e1116;
+}
+
+/* Project Table Row Hover States */
+#projectsTableBody tr {
+    transition: background-color 0.2s ease-in-out;
+}
+
+#projectsTableBody tr:hover {
+    background-color: rgba(240, 246, 252, 0.03);
+}
+
+/* Corporate Muted Delete Button */
+.btn-delete {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-delete:hover {
+    background-color: #da3637;
+    color: #ffffff;
+}
+
+/* Refresh Button Styles */
+.btn-refresh {
+    background-color: #21262d;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-refresh:hover {
+    background-color: #30363d;
+    color: #ffffff;
+}
+
+/* Back Link Styles */
+.back-link {
+    color: #8b949e;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #c9d1d9;
+    text-decoration: underline;
+}

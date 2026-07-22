@@ -1,0 +1,224 @@
+/* Reset and Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0e1116; /* Main dark background */
+    color: #adbac7;
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+/* Header & Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #161b22;
+    padding: 15px 5%;
+    border-bottom: 1px solid #30363d;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.logo-icon {
+    color: #388bfd; /* Subtle Blue/Cyan Accent */
+}
+
+.nav-links a {
+    color: #adbac7;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #58a6ff;
+    border-bottom: 2px solid #58a6ff;
+    padding-bottom: 5px;
+}
+
+/* Container spacing */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Title Section */
+.title-section {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.title-section h1 {
+    color: #f0f6fc;
+    font-size: 2.3rem; /* Font size increased */
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.icon-yellow {
+    color: #e3b341; /* Gold/Yellow Accent */
+}
+
+.title-section p {
+    font-size: 1.15rem; /* Font size increased */
+    color: #768390;
+}
+
+/* Section Blocks */
+.help-section-block {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    color: #f0f6fc;
+    font-size: 1.65rem; /* Increased size */
+    font-weight: 600;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+}
+
+.text-cyan { color: #58a6ff; }
+
+/* Formulas Grid */
+.formulas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* LIGHT GREY METALLIC GRADIENT CARD */
+.formula-card {
+    background: linear-gradient(145deg, #2d333b 0%, #22272e 100%);
+    border: 1px solid #444c56;
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formula-card:hover {
+    transform: translateY(-3px);
+    border-color: #636e7b;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.formula-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.formula-header h4 {
+    color: #f0f6fc;
+    font-size: 1.25rem; /* Increased card title */
+    font-weight: 600;
+}
+
+.unit-badge {
+    background-color: rgba(56, 139, 253, 0.15);
+    color: #58a6ff;
+    border: 1px solid rgba(56, 139, 253, 0.3);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Equation Display Box (Yellow Accent) */
+.equation-box {
+    background-color: #1c2128;
+    border-left: 4px solid #e3b341; /* Gold Accent Border */
+    color: #f3d003; /* Bright Yellow text */
+    padding: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 1.1rem; /* Equation size increased */
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    overflow-x: auto;
+    text-shadow: 0 0 1px rgba(243, 208, 3, 0.3);
+}
+
+.formula-details {
+    font-size: 0.98rem; /* Font size increased */
+    line-height: 1.6;
+    color: #adbac7;
+}
+
+/* FAQ Layout */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* FAQ LIGHT GREY METALLIC CARD */
+.faq-card {
+    background: linear-gradient(145deg, #2d333b 0%, #22272e 100%);
+    border: 1px solid #444c56;
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.faq-question {
+    color: #f0f6fc;
+    font-size: 1.2rem; /* Increased question size */
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.faq-answer {
+    color: #adbac7;
+    font-size: 1.02rem; /* Increased answer size */
+    line-height: 1.65;
+}
+
+.faq-answer strong {
+    color: #58a6ff; /* Accent highlight for key terms */
+    font-weight: 600;
+}
+
+/* Footer & Back Link */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.back-link {
+    color: #768390;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #58a6ff;
+    text-decoration: underline;
+}
+
+.back-link i {
+    margin-right: 5px;
+}
