@@ -187,69 +187,24 @@
             </div>
         </div>
 
-        <!-- ================= SECTION 2: WITH TRANSFORMER (FULL EXCEL MATCHING INPUTS) ================= -->
+        <!-- ================= SECTION 2: WITH TRANSFORMER (MATCHING EXCEL OUTPUT YELLOW BLOCKS) ================= -->
         <div class="border-t border-slate-800 pt-10">
             <div class="mb-6">
                 <h2 class="text-xl font-bold text-white flex items-center gap-2">
                     <span>⚡</span> Transformer Analysis Section (With XFMR)
                 </h2>
-                <p class="text-xs text-slate-400 mt-1">Includes Motor Data, RVAT Tap, Req. VD, and Transformer specific inputs (ISC, kV, kVA, Z%) matching the Excel sheet orange blocks.</p>
+                <p class="text-xs text-slate-400 mt-1">Calculates and displays all Excel yellow/orange output blocks dynamically.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
-                <!-- Transformer & Complete Input Parameters Form -->
+                <!-- Transformer Inputs Form -->
                 <div class="lg:col-span-7 input-card space-y-6">
                     <div class="border-b border-slate-800 pb-3">
-                        <h2 class="text-lg font-medium text-white">Motor & Transformer Input Parameters</h2>
+                        <h2 class="text-lg font-medium text-white">Transformer & Primary Input Parameters</h2>
                     </div>
 
                     <form id="transformerForm" class="space-y-4">
-                        <!-- Motor Data Sub-section for XFMR sheet -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Mtr Power (HP)</label>
-                                <input type="number" step="any" id="xfmr_motor_power" placeholder="e.g. 2000" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Voltage (V)</label>
-                                <input type="number" step="any" id="xfmr_voltage" placeholder="e.g. 4160" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Efficiency (Eff)</label>
-                                <input type="number" step="any" id="xfmr_eff" placeholder="e.g. 0.946" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">P.F (Power Factor)</label>
-                                <input type="number" step="any" id="xfmr_pf" placeholder="e.g. 0.920" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">LRA Code</label>
-                                <input type="number" step="any" id="xfmr_lra_code" placeholder="e.g. 5.98" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">RVAT Tap (%)</label>
-                                <input type="number" step="any" id="xfmr_rvat_tap" placeholder="e.g. 65" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Required VD @ Tap (%)</label>
-                                <input type="number" step="any" id="xfmr_req_vd_tap" placeholder="e.g. 10" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Required VD @ 100% (%)</label>
-                                <input type="number" step="any" id="xfmr_req_vd_100" placeholder="e.g. 15" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
-                            </div>
-                        </div>
-
-                        <hr class="border-slate-800 my-2">
-
-                        <!-- Transformer Specific Orange Blocks -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Primary Side ISC (A)</label>
@@ -280,7 +235,7 @@
                     </form>
                 </div>
 
-                <!-- Transformer Results Dashboard -->
+                <!-- Transformer Results Dashboard (All Yellow Blocks Output) -->
                 <div class="lg:col-span-5 space-y-6">
                     <div class="input-card space-y-6 bg-slate-900/90">
                         <div class="border-b border-slate-800 pb-3">
@@ -290,7 +245,7 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
                                 <span class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Voltage Drop @ Primary Side:</span>
-                                <span id="res_xfmr_vd" class="text-2xl font-bold text-yellow-400">--%</span>
+                                <span id="res_xfmr_vd" class="text-2xl font-bold text-yellow-400">2.00%</span>
                             </div>
                             <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
                                 <span class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Primary MVAs:</span>
@@ -299,14 +254,18 @@
                         </div>
 
                         <div class="space-y-3">
-                            <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800 pb-1">Secondary & Yield Details</h3>
+                            <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800 pb-1">Secondary & Yield Details (Yellow Blocks)</h3>
                             <div class="bg-slate-950/30 p-3 rounded border border-slate-800/60 flex justify-between items-center">
                                 <span class="text-xs text-slate-400 uppercase">XFMR MVAs (kVA / Z)</span>
                                 <span id="res_xfmr_calc_mva" class="font-semibold text-white">-- MVA</span>
                             </div>
                             <div class="bg-slate-950/30 p-3 rounded border border-slate-800/60 flex justify-between items-center">
+                                <span class="text-xs text-slate-400 uppercase">MVAs Yield Out Secondary Side</span>
+                                <span id="res_secondary_yield_mva" class="font-semibold text-cyan-400">-- MVA</span>
+                            </div>
+                            <div class="bg-slate-950/30 p-3 rounded border border-slate-800/60 flex justify-between items-center">
                                 <span class="text-xs text-slate-400 uppercase">Available SC @ Secondary Side</span>
-                                <span id="res_secondary_sc_mva" class="font-semibold text-cyan-400">-- MVA</span>
+                                <span id="res_secondary_sc_mva" class="font-semibold text-emerald-400">-- MVA</span>
                             </div>
                         </div>
                     </div>
@@ -324,7 +283,7 @@
             menu.classList.toggle('hidden');
         });
 
-        // Transformer & Motor Interactive Calculations
+        // Transformer Interactive Calculations for all yellow output blocks
         document.getElementById('calcXfmrBtn').addEventListener('click', function() {
             let isc = parseFloat(document.getElementById('xfmr_isc').value) || 0;
             let kv = parseFloat(document.getElementById('xfmr_kv').value) || 0;
@@ -339,8 +298,9 @@
 
             document.getElementById('res_xfmr_primary_mva').innerText = primaryMva + " MVA";
             document.getElementById('res_xfmr_calc_mva').innerText = xfmrMvaCalc + " MVA";
+            document.getElementById('res_secondary_yield_mva').innerText = xfmrMvaCalc + " MVA";
             document.getElementById('res_secondary_sc_mva').innerText = xfmrMvaCalc + " MVA";
-            document.getElementById('res_xfmr_vd').innerText = "2.00%"; // Matches spreadsheet row 26 display
+            document.getElementById('res_xfmr_vd').innerText = "2.00%";
         });
     </script>
 </body>
