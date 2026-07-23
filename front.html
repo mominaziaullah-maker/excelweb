@@ -287,107 +287,116 @@
         });
 
         // Function to Generate Text/Table-Based Clean PDF Report
-        function downloadResultsPDF() {
-            const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
-            
-            const data = {
-                projectName: projectName,
-                hp: document.getElementById('motor_power_hp').value,
-                voltage: document.getElementById('voltage_v').value,
-                eff: document.getElementById('efficiency').value,
-                pf: document.getElementById('power_factor').value,
-                lraCode: document.getElementById('lra_code').value,
-                rvat: document.getElementById('rvat_tap_percent').value,
-                vdTap: document.getElementById('res_vd_tap').innerText,
-                vd100: document.getElementById('res_vd_100').innerText,
-                scTap: document.getElementById('res_req_sc_tap').innerText,
-                sc100: document.getElementById('res_req_sc_100').innerText,
-                fla: document.getElementById('res_fla').innerText,
-                lra: document.getElementById('res_lra').innerText,
-                kva: document.getElementById('res_kva').innerText,
-                lrkva: document.getElementById('res_lrkva').innerText,
-                iTap: document.getElementById('res_i_tap').innerText,
-                i100: document.getElementById('res_lra_100').innerText,
-                xdTap: document.getElementById('res_xd_tap').innerText,
-                lrmvaTap: document.getElementById('res_lrmva_tap').innerText,
-                lrmva100: document.getElementById('res_lrmva_100').innerText,
-                availSc: document.getElementById('res_available_sc_mva').innerText
-            };
+       function downloadResultsPDF() {
+    const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
+    
+    const data = {
+        projectName: projectName,
+        hp: document.getElementById('motor_power_hp').value,
+        voltage: document.getElementById('voltage_v').value,
+        eff: document.getElementById('efficiency').value,
+        pf: document.getElementById('power_factor').value,
+        lraCode: document.getElementById('lra_code').value,
+        rvat: document.getElementById('rvat_tap_percent').value,
+        vdTap: document.getElementById('res_vd_tap').innerText,
+        vd100: document.getElementById('res_vd_100').innerText,
+        scTap: document.getElementById('res_req_sc_tap').innerText,
+        sc100: document.getElementById('res_req_sc_100').innerText,
+        fla: document.getElementById('res_fla').innerText,
+        lra: document.getElementById('res_lra').innerText,
+        kva: document.getElementById('res_kva').innerText,
+        lrkva: document.getElementById('res_lrkva').innerText,
+        iTap: document.getElementById('res_i_tap').innerText,
+        i100: document.getElementById('res_lra_100').innerText,
+        xdTap: document.getElementById('res_xd_tap').innerText,
+        lrmvaTap: document.getElementById('res_lrmva_tap').innerText,
+        lrmva100: document.getElementById('res_lrmva_100').innerText,
+        availSc: document.getElementById('res_available_sc_mva').innerText
+    };
 
-            const reportDiv = document.createElement('div');
-            reportDiv.style.padding = '20px';
-            reportDiv.style.color = '#000';
-            reportDiv.style.fontFamily = 'Arial, sans-serif';
-            reportDiv.style.background = '#fff';
+    const reportDiv = document.createElement('div');
+    reportDiv.style.position = 'absolute';
+    reportDiv.style.left = '-9999px';
+    reportDiv.style.top = '0';
+    reportDiv.style.width = '210mm';
+    reportDiv.style.padding = '20px';
+    reportDiv.style.color = '#000';
+    reportDiv.style.fontFamily = 'Arial, sans-serif';
+    reportDiv.style.background = '#fff';
 
-            reportDiv.innerHTML = `
-                <h2 style="text-align: center; color: #0f172a; margin-bottom: 5px;">MOTO-CALC ENGINEERING REPORT</h2>
-                <p style="text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px;">Motor Voltage Drop & Short Circuit Calculation</p>
-                
-                <hr style="border: 0; border-top: 1px solid #cbd5e1; margin-bottom: 15px;">
-                
-                <p style="font-size: 13px;"><strong>Project Name:</strong> ${data.projectName}</p>
-                <p style="font-size: 13px;"><strong>Date / Time:</strong> ${new Date().toLocaleString()}</p>
-                
-                <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">1. Calculated Results Dashboard</h3>
-                <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 65%:</strong> ${data.vdTap}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 100%:</strong> ${data.vd100}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ Tap:</strong> ${data.scTap}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ 100%:</strong> ${data.sc100}</td>
-                    </tr>
-                </table>
+    reportDiv.innerHTML = `
+        <h2 style="text-align: center; color: #0f172a; margin-bottom: 5px;">MOTO-CALC ENGINEERING REPORT</h2>
+        <p style="text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px;">Motor Voltage Drop & Short Circuit Calculation</p>
+        
+        <hr style="border: 0; border-top: 1px solid #cbd5e1; margin-bottom: 15px;">
+        
+        <p style="font-size: 13px;"><strong>Project Name:</strong> ${data.projectName}</p>
+        <p style="font-size: 13px;"><strong>Date / Time:</strong> ${new Date().toLocaleString()}</p>
+        
+        <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">1. Calculated Results Dashboard</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 65%:</strong> ${data.vdTap}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 100%:</strong> ${data.vd100}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ Tap:</strong> ${data.scTap}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ 100%:</strong> ${data.sc100}</td>
+            </tr>
+        </table>
 
-                <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">2. Input Parameters</h3>
-                <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">Motor Power: ${data.hp} HP</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">Voltage: ${data.voltage} V</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">Efficiency: ${data.eff}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">Power Factor: ${data.pf}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">LRA Code: ${data.lraCode}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">RVAT Tap: ${data.rvat}%</td>
-                    </tr>
-                </table>
+        <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">2. Input Parameters</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">Motor Power: ${data.hp} HP</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">Voltage: ${data.voltage} V</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">Efficiency: ${data.eff}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">Power Factor: ${data.pf}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">LRA Code: ${data.lraCode}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">RVAT Tap: ${data.rvat}%</td>
+            </tr>
+        </table>
 
-                <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">3. Motor & System Parameters</h3>
-                <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">FLA: ${data.fla} A</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">LRA: ${data.lra} A</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">KVA: ${data.kva}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">LRKVA: ${data.lrkva}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">I 65%: ${data.iTap}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">I 100%: ${data.i100}</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">X'D 65%: ${data.xdTap}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">LRMVA 65%: ${data.lrmvaTap}</td>
-                        <td style="border: 1px solid #cbd5e1; padding: 6px;">LRMVA 100%: ${data.lrmva100}</td>
-                    </tr>
-                </table>
-                <p style="font-size: 11px; color: #64748b; margin-top: 10px;">Available SC MVA: ${data.availSc}</p>
-            `;
+        <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">3. Motor & System Parameters</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">FLA: ${data.fla} A</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">LRA: ${data.lra} A</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">KVA: ${data.kva}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">LRKVA: ${data.lrkva}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">I 65%: ${data.iTap}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">I 100%: ${data.i100}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">X'D 65%: ${data.xdTap}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">LRMVA 65%: ${data.lrmvaTap}</td>
+                <td style="border: 1px solid #cbd5e1; padding: 6px;">LRMVA 100%: ${data.lrmva100}</td>
+            </tr>
+        </table>
+        <p style="font-size: 11px; color: #64748b; margin-top: 10px;">Available SC MVA: ${data.availSc}</p>
+    `;
 
-            const options = {
-                margin:       10,
-                filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
+    document.body.appendChild(reportDiv);
 
-            html2pdf().from(reportDiv).set(options).save();
-        }
+    const options = {
+        margin:       10,
+        filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(reportDiv).set(options).save().then(() => {
+        document.body.removeChild(reportDiv);
+    });
+}
+        
     </script>
 </body>
 </html>
