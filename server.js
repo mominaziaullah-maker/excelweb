@@ -161,30 +161,12 @@ app.post('/api/calculate-and-save', (req, res) => {
 
     } catch (calcError) {
         console.error("Calculation Error:", calcError);
-        res.status(400).json({ error: "Invalid input values or math error." });
+        res.status(400).json({ error: "Invalid input parameters or calculation failure." });
     }
 });
 
-// 2. Fetch Calculations History (GET)
-app.get('/api/calculations', (req, res) => {
-    const sqlQuery = "SELECT * FROM motor_calculations ORDER BY created_at DESC";
-    db.query(sqlQuery, (err, results) => {
-        if (err) return res.status(500).json({ error: "Database fetch failed." });
-        res.json(results);
-    });
-});
-
-// 3. Delete Calculation Endpoint (DELETE)
-app.delete('/api/calculations/:id', (req, res) => {
-    const recordId = req.params.id;
-    const sqlQuery = "DELETE FROM motor_calculations WHERE id = ?";
-    db.query(sqlQuery, [recordId], (err, result) => {
-        if (err) return res.status(500).json({ error: "Record delete failed." });
-        res.json({ message: "Record deleted successfully!" });
-    });
-});
-
-const PORT = process.env.PORT || 5000;
+// Start Server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
