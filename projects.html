@@ -93,95 +93,92 @@
     </div>
 
  <script>
-        // Render ka live backend URL define karein
-        const API_BASE_URL = 'https://excelweb-ezys.onrender.com';
+    // Render ka live backend URL yahan define karein
+    const API_BASE_URL = 'https://excelweb-ezys.onrender.com';
 
-        // Fetch calculations when page loads
-        document.addEventListener('DOMContentLoaded', fetchHistoryFromDatabase);
+    document.addEventListener('DOMContentLoaded', fetchHistoryFromDatabase);
 
-        async function fetchHistoryFromDatabase() {
-            const tableBody = document.getElementById('projectsTableBody');
+    async function fetchHistoryFromDatabase() {
+        const tableBody = document.getElementById('projectsTableBody');
+        
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align:center; padding:20px; color:#22d3ee;">
+                    Loading calculations from MySQL Database...
+                </td>
+            </tr>
+        `;
 
-            // Show loading message
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align:center; padding:20px; color:#22d3ee;">
-                        Loading calculations from MySQL Database...
-                    </td>
-                </tr>
-            `;
+        try {
+            // Yahan full URL use karein
+            const response = await fetch(`${API_BASE_URL}/api/calculations`);
+            const data = await response.json();
 
-            try {
-                // Fetch data using Render live backend URL
-                const response = await fetch(`${API_BASE_URL}/api/calculations`);
-                const data = await response.json();
+            if (response.ok && data.length > 0) {
+                tableBody.innerHTML = "";
 
-                if (response.ok && data.length > 0) {
-                    tableBody.innerHTML = "";
-
-                    data.forEach(calc => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td class="px-6 py-4 font-medium text-white">
-                                ${calc.project_name || 'Untitled'}
-                            </td>
-                            <td class="px-6 py-4 text-slate-300">
-                                ${parseFloat(calc.motor_power_hp || 0).toFixed(1)} HP
-                            </td>
-                            <td class="px-6 py-4 text-yellow-400 font-semibold">
-                                ${parseFloat(calc.calculated_vd_tap_percent || 0).toFixed(2)}%
-                            </td>
-                            <td class="px-6 py-4 text-cyan-400 font-semibold">
-                                ${parseFloat(calc.calculated_vd_100_percent || 0).toFixed(2)}%
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button onclick="deleteRow(${calc.id})" class="text-red-400 hover:text-red-300 font-medium">
-                                    Delete
-                                </button>
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                } else {
-                    tableBody.innerHTML = `
-                        <tr>
-                            <td colspan="5" style="text-align:center; padding:20px; color:#888;">
-                                Database is empty. No calculations found.
-                            </td>
-                        </tr>
+                data.forEach(calc => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-medium text-white">
+                            ${calc.project_name || 'Untitled'}
+                        </td>
+                        <td class="px-6 py-4 text-slate-300">
+                            ${parseFloat(calc.motor_power_hp || 0).toFixed(1)} HP
+                        </td>
+                        <td class="px-6 py-4 text-yellow-400 font-semibold">
+                            ${parseFloat(calc.calculated_vd_tap_percent || 0).toFixed(2)}%
+                        </td>
+                        <td class="px-6 py-4 text-cyan-400 font-semibold">
+                            ${parseFloat(calc.calculated_vd_100_percent || 0).toFixed(2)}%
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button onclick="deleteRow(${calc.id})" class="text-red-400 hover:text-red-300 font-medium">
+                                Delete
+                            </button>
+                        </td>
                     `;
-                }
-            } catch (err) {
-                console.error("Database connection error:", err);
+                    tableBody.appendChild(row);
+                });
+            } else {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="5" style="text-align:center; padding:20px; color:#ef4444; font-weight:bold;">
-                            ❌ Unable to connect with Live Backend Server.
+                        <td colspan="5" style="text-align:center; padding:20px; color:#888;">
+                            Database is empty. No calculations found.
                         </td>
                     </tr>
                 `;
             }
+        } catch (err) {
+            console.error("Database connection error:", err);
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center; padding:20px; color:#ef4444; font-weight:bold;">
+                        ❌ Unable to connect with Live Backend Server.
+                    </td>
+                </tr>
+            `;
         }
+    }
 
-        // Delete function
-        async function deleteRow(id) {
-            if (!confirm("Are you sure you want to delete this calculation?")) return;
+    async function deleteRow(id) {
+        if (!confirm("Are you sure you want to delete this calculation?")) return;
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/calculations/${id}`, {
-                    method: 'DELETE'
-                });
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/calculations/${id}`, {
+                method: 'DELETE'
+            });
 
-                if (response.ok) {
-                    fetchHistoryFromDatabase();
-                } else {
-                    alert("Failed to delete record.");
-                }
-            } catch (err) {
-                console.error("Error deleting record:", err);
-                alert("Error deleting record from server.");
+            if (response.ok) {
+                fetchHistoryFromDatabase();
+            } else {
+                alert("Failed to delete record.");
             }
+        } catch (err) {
+            console.error("Error deleting record:", err);
+            alert("Error deleting record from server.");
         }
-    </script>
+    }
+</script>
 </body>
 </html>
