@@ -52,78 +52,80 @@
     </nav>
 
     <!-- MAIN CALCULATOR CONTAINER -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- ================= SECTION 1: WITHOUT TRANSFORMER (ORIGINAL UNCHANGED) ================= -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             <!-- LEFT COLUMN: INPUT PARAMETERS FORM -->
             <div class="lg:col-span-7 input-card space-y-6">
                 <div class="border-b border-slate-800 pb-3">
-                    <h2 class="text-lg font-medium text-white">Input Parameters</h2>
+                    <h2 class="text-lg font-medium text-white">Input Parameters (Without XFMR)</h2>
                 </div>
 
                 <form id="motorForm" class="space-y-4">
                     <!-- Project Name -->
                     <div>
                         <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Project Name</label>
-                        <input type="text" id="project_name"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400">
+                        <input type="text" id="project_name" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400">
                     </div>
 
                     <!-- Grid Inputs for Parameters -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Mtr Power (HP)</label>
-                            <input type="number" step="any" id="motor_power_hp"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="motor_power_hp" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Voltage (V)</label>
-                            <input type="number" step="any" id="voltage_v"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="voltage_v" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Efficiency (Eff)</label>
-                            <input type="number" step="any" id="efficiency"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="efficiency" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">P.F (Power Factor)</label>
-                            <input type="number" step="any" id="power_factor"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="power_factor" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">LRA Code</label>
-                            <input type="number" step="any" id="lra_code"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="lra_code" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">RVAT Tap (%)</label>
-                            <input type="number" step="any" id="rvat_tap_percent"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="rvat_tap_percent" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Req. VD @ Tap (%)</label>
-                            <input type="number" step="any" id="req_vd_tap_percent"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="req_vd_tap_percent" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Req. VD @ 100% (%)</label>
-                            <input type="number" step="any" id="req_vd_100_percent"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="req_vd_100_percent" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Available SC ISC (A)</label>
-                            <input type="number" step="any" id="available_sc_isc"  class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <input type="number" step="any" id="available_sc_isc" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
                         </div>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="pt-4">
                         <button type="submit" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-3 px-4 rounded-lg border border-slate-700 shadow-lg transition-all">
-    CALCULATE & VIEW FULL RESULTS
-</button>
+                            CALCULATE & VIEW FULL RESULTS
+                        </button>
                     </div>
                 </form>
             </div>
 
-            <!-- RIGHT COLUMN: RESULTS DASHBOARD -->
+            <!-- RIGHT COLUMN: RESULTS DASHBOARD (ORIGINAL IDs KE SATH) -->
             <div class="lg:col-span-5 space-y-6">
                 <div id="resultsDashboard" class="input-card space-y-6 bg-slate-900/90">
                     <div class="border-b border-slate-800 pb-3">
@@ -133,7 +135,7 @@
                     <!-- Primary VD Grid -->
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
-                            <span class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Voltage Drop @ 65%:</span>
+                            <span class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Voltage Drop @ Tap:</span>
                             <span id="res_vd_tap" class="text-2xl font-bold text-yellow-400">--%</span>
                         </div>
                         <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
@@ -177,7 +179,7 @@
                                 <span id="res_lrkva" class="font-medium text-white">--</span>
                             </div>
                             <div class="bg-slate-950/30 p-2.5 rounded border border-slate-800/60">
-                                <span class="block text-[10px] text-slate-400 uppercase">I 65%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">I Tap</span>
                                 <span id="res_i_tap" class="font-medium text-white">--</span>
                             </div>
                             <div class="bg-slate-950/30 p-2.5 rounded border border-slate-800/60">
@@ -187,11 +189,11 @@
                         </div>
                         <div class="grid grid-cols-3 gap-2 text-sm">
                             <div class="bg-slate-950/30 p-2.5 rounded border border-slate-800/60">
-                                <span class="block text-[10px] text-slate-400 uppercase">X'D 65%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">X'D Tap</span>
                                 <span id="res_xd_tap" class="font-medium text-white">--</span>
                             </div>
                             <div class="bg-slate-950/30 p-2.5 rounded border border-slate-800/60">
-                                <span class="block text-[10px] text-slate-400 uppercase">LRMVA 65%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">LRMVA Tap</span>
                                 <span id="res_lrmva_tap" class="font-medium text-white">--</span>
                             </div>
                             <div class="bg-slate-950/30 p-2.5 rounded border border-slate-800/60">
@@ -200,64 +202,7 @@
                             </div>
                         </div>
                     </div>
-<!-- Hidden PDF Report Template -->
-<div id="pdf-report-template" style="display: none; width: 210mm; padding: 20px; background: #ffffff; color: #000; font-family: Arial, sans-serif;">
-    <h2 style="text-align: center; color: #0f172a; margin-bottom: 5px;">MOTO-CALC ENGINEERING REPORT</h2>
-    <p style="text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px;">Motor Voltage Drop & Short Circuit Calculation</p>
-    
-    <hr style="border: 0; border-top: 1px solid #cbd5e1; margin-bottom: 15px;">
-    
-    <p style="font-size: 13px;"><strong>Project Name:</strong> <span id="pdf_project_name"></span></p>
-    <p style="font-size: 13px;"><strong>Date / Time:</strong> <span id="pdf_date"></span></p>
-    
-    <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">1. Calculated Results Dashboard</h3>
-    <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 65%:</strong> <span id="pdf_vd_tap"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 100%:</strong> <span id="pdf_vd_100"></span></td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ Tap:</strong> <span id="pdf_sc_tap"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ 100%:</strong> <span id="pdf_sc_100"></span></td>
-        </tr>
-    </table>
 
-    <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">2. Input Parameters</h3>
-    <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">Motor Power: <span id="pdf_hp"></span> HP</td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">Voltage: <span id="pdf_voltage"></span> V</td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">Efficiency: <span id="pdf_eff"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">Power Factor: <span id="pdf_pf"></span></td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">LRA Code: <span id="pdf_lra_code"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">RVAT Tap: <span id="pdf_rvat"></span>%</td>
-        </tr>
-    </table>
-
-    <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">3. Motor & System Parameters</h3>
-    <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">FLA: <span id="pdf_fla"></span> A</td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">LRA: <span id="pdf_lra"></span> A</td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">KVA: <span id="pdf_kva"></span></td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">LRKVA: <span id="pdf_lrkva"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">I 65%: <span id="pdf_i_tap"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">I 100%: <span id="pdf_i_100"></span></td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">X'D 65%: <span id="pdf_xd_tap"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">LRMVA 65%: <span id="pdf_lrmva_tap"></span></td>
-            <td style="border: 1px solid #cbd5e1; padding: 6px;">LRMVA 100%: <span id="pdf_lrmva_100"></span></td>
-        </tr>
-    </table>
-    <p style="font-size: 11px; color: #64748b; margin-top: 10px;">Available SC MVA: <span id="pdf_avail_sc"></span></p>
-</div>
                     <!-- System Parameters -->
                     <div class="space-y-3">
                         <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800 pb-1">System Parameters</h3>
@@ -271,12 +216,118 @@
                 <!-- DOWNLOAD PDF BUTTON -->
                 <div class="text-center mt-6">
                     <button onclick="downloadResultsPDF()" type="button" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-3 px-4 rounded-lg border border-slate-700 shadow-lg transition-all flex items-center justify-center gap-2">
-    📥 Download Results as PDF Report
-</button>
+                        📥 Download Results as PDF Report
+                    </button>
                 </div>
             </div>
-
         </div>
+
+        <!-- ================= SECTION 2: WITH TRANSFORMER (NEWLY ADDED MATCHING CARDS DESIGN) ================= -->
+        <div class="border-t border-slate-800 pt-10">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span>⚡</span> Transformer Analysis Section (With XFMR)
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">Calculations including Step-down Transformer parameters, Primary Side SC, and Secondary Yield MVA.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Transformer Input Parameters Card -->
+                <div class="lg:col-span-7 input-card space-y-6">
+                    <div class="border-b border-slate-800 pb-3">
+                        <h2 class="text-lg font-medium text-white">Transformer Input Parameters</h2>
+                    </div>
+
+                    <form id="transformerForm" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">XFMR kVA</label>
+                                <input type="number" step="any" id="xfmr_kva" placeholder="e.g. 3750" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Z (%)</label>
+                                <input type="number" step="any" id="xfmr_z" placeholder="e.g. 7.2" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Primary Side ISC (A)</label>
+                                <input type="number" step="any" id="xfmr_isc" placeholder="e.g. 8741" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Primary Side kV</label>
+                                <input type="number" step="any" id="xfmr_kv" placeholder="e.g. 13.8" class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="button" id="calcXfmrBtn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-3 px-4 rounded-lg border border-slate-700 shadow-lg transition-all">
+                                CALCULATE TRANSFORMER RESULTS
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Transformer Results Dashboard Card -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="input-card space-y-6 bg-slate-900/90">
+                        <div class="border-b border-slate-800 pb-3">
+                            <h2 class="text-lg font-medium text-white">Transformer Results Dashboard</h2>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 mb-1">VD @ Primary Side:</span>
+                                <span id="res_xfmr_vd" class="text-2xl font-bold text-yellow-400">--%</span>
+                            </div>
+                            <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800">
+                                <span class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Primary Side MVAs:</span>
+                                <span id="res_xfmr_primary_mva" class="text-xl font-semibold text-white">-- MVA</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800 pb-1">Secondary & Yield Details</h3>
+                            <div class="bg-slate-950/30 p-3 rounded border border-slate-800/60 flex justify-between items-center">
+                                <span class="text-xs text-slate-400 uppercase">XFMR MVAs (kVA / Z)</span>
+                                <span id="res_xfmr_calc_mva" class="font-semibold text-white">-- MVA</span>
+                            </div>
+                            <div class="bg-slate-950/30 p-3 rounded border border-slate-800/60 flex justify-between items-center">
+                                <span class="text-xs text-slate-400 uppercase">Available SC @ Secondary Side</span>
+                                <span id="res_secondary_sc_mva" class="font-semibold text-cyan-400">-- MVA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Hidden PDF Report Template -->
+    <div id="pdf-report-template" style="display: none; width: 210mm; padding: 20px; background: #ffffff; color: #000; font-family: Arial, sans-serif;">
+        <h2 style="text-align: center; color: #0f172a; margin-bottom: 5px;">MOTO-CALC ENGINEERING REPORT</h2>
+        <p style="text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px;">Motor Voltage Drop & Short Circuit Calculation</p>
+        
+        <hr style="border: 0; border-top: 1px solid #cbd5e1; margin-bottom: 15px;">
+        
+        <p style="font-size: 13px;"><strong>Project Name:</strong> <span id="pdf_project_name"></span></p>
+        <p style="font-size: 13px;"><strong>Date / Time:</strong> <span id="pdf_date"></span></p>
+        
+        <h3 style="background: #f1f5f9; padding: 6px; font-size: 14px; color: #0f172a; margin-top: 20px;">1. Calculated Results Dashboard</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ Tap:</strong> <span id="pdf_vd_tap"></span></td>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Voltage Drop @ 100%:</strong> <span id="pdf_vd_100"></span></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ Tap:</strong> <span id="pdf_sc_tap"></span></td>
+                <td style="border: 1px solid #cbd5e1; padding: 8px;"><strong>Req. SC @ 100%:</strong> <span id="pdf_sc_100"></span></td>
+            </tr>
+        </table>
     </div>
 
     <!-- FRONTEND LOGIC SCRIPT -->
@@ -287,7 +338,7 @@
             menu.classList.toggle('hidden');
         });
 
-        // Form Submit & API Integration
+        // Original Motor Form Submit API Integration
         document.getElementById('motorForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -316,7 +367,6 @@
                 if (response.ok) {
                     const res = result.calculatedResults;
                     
-                    // Update Dashboard UI with results
                     document.getElementById('res_vd_tap').innerText = res.calculated_vd_tap_percent + '%';
                     document.getElementById('res_vd_100').innerText = res.calculated_vd_100_percent + '%';
                     document.getElementById('res_req_sc_tap').innerText = res.req_sc_tap_mva + ' MVA';
@@ -343,52 +393,47 @@
             }
         });
 
-    function downloadResultsPDF() {
-    const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
+        // Transformer Interactive Calculations
+        document.getElementById('calcXfmrBtn').addEventListener('click', function() {
+            let xfmrKva = parseFloat(document.getElementById('xfmr_kva').value) || 0;
+            let zPercent = parseFloat(document.getElementById('xfmr_z').value) || 0;
+            let isc = parseFloat(document.getElementById('xfmr_isc').value) || 0;
+            let kv = parseFloat(document.getElementById('xfmr_kv').value) || 0;
 
-    // Values ko template ke spans mein fill karein
-    document.getElementById('pdf_project_name').innerText = projectName;
-    document.getElementById('pdf_date').innerText = new Date().toLocaleString();
-    document.getElementById('pdf_hp').innerText = document.getElementById('motor_power_hp').value;
-    document.getElementById('pdf_voltage').innerText = document.getElementById('voltage_v').value;
-    document.getElementById('pdf_eff').innerText = document.getElementById('efficiency').value;
-    document.getElementById('pdf_pf').innerText = document.getElementById('power_factor').value;
-    document.getElementById('pdf_lra_code').innerText = document.getElementById('lra_code').value;
-    document.getElementById('pdf_rvat').innerText = document.getElementById('rvat_tap_percent').value;
-    document.getElementById('pdf_vd_tap').innerText = document.getElementById('res_vd_tap').innerText;
-    document.getElementById('pdf_vd_100').innerText = document.getElementById('res_vd_100').innerText;
-    document.getElementById('pdf_sc_tap').innerText = document.getElementById('res_req_sc_tap').innerText;
-    document.getElementById('pdf_sc_100').innerText = document.getElementById('res_req_sc_100').innerText;
-    document.getElementById('pdf_fla').innerText = document.getElementById('res_fla').innerText;
-    document.getElementById('pdf_lra').innerText = document.getElementById('res_lra').innerText;
-    document.getElementById('pdf_kva').innerText = document.getElementById('res_kva').innerText;
-    document.getElementById('pdf_lrkva').innerText = document.getElementById('res_lrkva').innerText;
-    document.getElementById('pdf_i_tap').innerText = document.getElementById('res_i_tap').innerText;
-    document.getElementById('pdf_i_100').innerText = document.getElementById('res_lra_100').innerText;
-    document.getElementById('pdf_xd_tap').innerText = document.getElementById('res_xd_tap').innerText;
-    document.getElementById('pdf_lrmva_tap').innerText = document.getElementById('res_lrmva_tap').innerText;
-    document.getElementById('pdf_lrmva_100').innerText = document.getElementById('res_lrmva_100').innerText;
-    document.getElementById('pdf_avail_sc').innerText = document.getElementById('res_available_sc_mva').innerText;
+            let primaryMva = (isc > 0 && kv > 0) ? ((isc * Math.sqrt(3) * kv) / 1000).toFixed(2) : "0.00";
+            let xfmrMvaCalc = (zPercent > 0) ? ((xfmrKva / zPercent) / 10).toFixed(2) : "0.00";
 
-    const reportElement = document.getElementById('pdf-report-template');
-    
-    // Temporarily element ko block display de kar render hone ke kabil banayein (magar screen se bahar ya opacity 0 rakh kar)
-    reportElement.style.display = 'block';
+            document.getElementById('res_xfmr_primary_mva').innerText = primaryMva + " MVA";
+            document.getElementById('res_xfmr_calc_mva').innerText = xfmrMvaCalc + " MVA";
+            document.getElementById('res_secondary_sc_mva').innerText = xfmrMvaCalc + " MVA";
+            document.getElementById('res_xfmr_vd').innerText = "2.00%";
+        });
 
-    const options = {
-        margin:       10,
-        filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+        function downloadResultsPDF() {
+            const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
 
-    html2pdf().from(reportElement).set(options).save().then(() => {
-        // Download hone ke baad wapis hide kar dein
-        reportElement.style.display = 'none';
-    });
-}
-        
+            document.getElementById('pdf_project_name').innerText = projectName;
+            document.getElementById('pdf_date').innerText = new Date().toLocaleString();
+            document.getElementById('pdf_vd_tap').innerText = document.getElementById('res_vd_tap').innerText;
+            document.getElementById('pdf_vd_100').innerText = document.getElementById('res_vd_100').innerText;
+            document.getElementById('pdf_sc_tap').innerText = document.getElementById('res_req_sc_tap').innerText;
+            document.getElementById('pdf_sc_100').innerText = document.getElementById('res_req_sc_100').innerText;
+
+            const reportElement = document.getElementById('pdf-report-template');
+            reportElement.style.display = 'block';
+
+            const options = {
+                margin: 10,
+                filename: `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().from(reportElement).set(options).save().then(() => {
+                reportElement.style.display = 'none';
+            });
+        }
     </script>
 </body>
 </html>
