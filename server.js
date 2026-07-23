@@ -8,8 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname)));
-
 // MySQL Connection Pool (Auto-reconnects on timeout)
 const db = mysql.createPool({
     host: process.env.DB_HOST || "mysql-1ecc1d3b-mominaziaullah-28be.b.aivencloud.com",
@@ -35,33 +33,10 @@ db.getConnection((err, connection) => {
     }
 });
 
-// Routes for HTML Pages
-app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "front.html"));
-});
-
-app.get("/front.html", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "front.html"));
-});
-
-app.get("/projects.html", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "projects.html"));
-});
-
-app.get("/formula.html", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "formula.html"));
-});
-
-// Explicit Routes for CSS files
-app.get("/style.css", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "style.css"));
-});
-
-app.get("/formula.css", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "formula.css"));
-});
-
 // ==========================================
+// API ROUTES (Must be placed BEFORE static files)
+// ==========================================
+
 // 1. Calculation & Save API Endpoint (POST)
 app.post('/api/calculate-and-save', (req, res) => {
     const {
@@ -161,12 +136,59 @@ app.post('/api/calculate-and-save', (req, res) => {
 
     } catch (calcError) {
         console.error("Calculation Error:", calcError);
-        res.status(400).json({ error: "Invalid input parameters or calculation failure." });
+        res.status(400).json({ error: "Invalid input values or math error." });
     }
 });
 
-// Start Server
-const PORT = process.env.PORT || 3000;
+// 2. Fetch Calculations History (GET)
+app.get('/api/calculations', (req, res) => {
+    const sqlQuery = "SELECT * FROM motor_calculations ORDER BY created_at DESC";
+    db.query(sqlQuery, (err, results) => {
+        if (err) return res.status(500).json({ error: "Database fetch failed." });
+        res.json(results);
+    });
+});
+
+// 3. Delete Calculation Endpoint (DELETE)
+app.delete('/api/calculations/:id', (req, res) => {
+    const recordId = req.params.id;
+    const sqlQuery = "DELETE FROM motor_calculations WHERE id = ?";
+    db.query(sqlQuery, [recordId], (err, result) => {
+        if (err) return res.status(500).json({ error: "Record delete failed." });
+        res.json({ message: "Record deleted successfully!" });
+    });
+});
+
+// ==========================================
+// STATIC FILES & HTML ROUTES
+// ==========================================
+app.use(express.static(path.join(__dirname)));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "front.html"));
+});
+
+app.get("/front.html", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "front.html"));
+});
+
+app.get("/projects.html", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "projects.html"));
+});
+
+app.get("/formula.html", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "formula.html"));
+});
+
+app.get("/style.css", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "style.css"));
+});
+
+app.get("/formula.css", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "formula.css"));
+});
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
