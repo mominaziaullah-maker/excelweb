@@ -287,7 +287,7 @@
         });
 
         // Function to Generate Text/Table-Based Clean PDF Report
-       function downloadResultsPDF() {
+      function downloadResultsPDF() {
     const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
     
     const data = {
@@ -315,14 +315,16 @@
     };
 
     const reportDiv = document.createElement('div');
-    reportDiv.style.position = 'absolute';
-    reportDiv.style.left = '-9999px';
+    reportDiv.style.position = 'fixed';
+    reportDiv.style.left = '0';
     reportDiv.style.top = '0';
     reportDiv.style.width = '210mm';
     reportDiv.style.padding = '20px';
     reportDiv.style.color = '#000';
     reportDiv.style.fontFamily = 'Arial, sans-serif';
-    reportDiv.style.background = '#fff';
+    reportDiv.style.background = '#ffffff';
+    reportDiv.style.zIndex = '999999';
+    reportDiv.style.opacity = '0'; // Hide visually from user screen while capturing
 
     reportDiv.innerHTML = `
         <h2 style="text-align: center; color: #0f172a; margin-bottom: 5px;">MOTO-CALC ENGINEERING REPORT</h2>
@@ -384,17 +386,20 @@
 
     document.body.appendChild(reportDiv);
 
-    const options = {
-        margin:       10,
-        filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    // Give browser 300ms to render the DOM elements before generating PDF
+    setTimeout(() => {
+        const options = {
+            margin:       10,
+            filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, logging: false },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
 
-    html2pdf().from(reportDiv).set(options).save().then(() => {
-        document.body.removeChild(reportDiv);
-    });
+        html2pdf().from(reportDiv).set(options).save().then(() => {
+            document.body.removeChild(reportDiv);
+        });
+    }, 300);
 }
         
     </script>
