@@ -92,7 +92,10 @@
         </div>
     </div>
 
-  <script>
+ <script>
+        // Render ka live backend URL define karein
+        const API_BASE_URL = 'https://excelweb-ezys.onrender.com';
+
         // Fetch calculations when page loads
         document.addEventListener('DOMContentLoaded', fetchHistoryFromDatabase);
 
@@ -109,8 +112,8 @@
             `;
 
             try {
-                // Fetch data using relative URL for Vercel deployment
-                const response = await fetch('/api/calculations');
+                // Fetch data using Render live backend URL
+                const response = await fetch(`${API_BASE_URL}/api/calculations`);
                 const data = await response.json();
 
                 if (response.ok && data.length > 0) {
@@ -165,7 +168,7 @@
             if (!confirm("Are you sure you want to delete this calculation?")) return;
 
             try {
-                const response = await fetch(`/api/calculations/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/api/calculations/${id}`, {
                     method: 'DELETE'
                 });
 
