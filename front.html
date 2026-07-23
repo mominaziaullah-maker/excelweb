@@ -201,7 +201,9 @@
                         </div>
                     </div>
 <!-- Hidden PDF Report Template -->
-<div id="pdf-report-template" style="display: none; width: 210mm; padding: 20px; background: #ffffff; color: #000; font-family: Arial, sans-serif;">
+<!-- PDF Report Template (Always in DOM, hidden off-screen) -->
+<div id="pdf-report-template" style="position: absolute; left: -9999px; top: 0; width: 210mm; padding: 20px; background: #ffffff; color: #000; font-family: Arial, sans-serif; z-index: -9999;">
+    <!-- Upar wala saara content waise hi rahega jo pehle tha -->
     <h2 style="text-align: center; color: #0f172a; margin-bottom: 5px;">MOTO-CALC ENGINEERING REPORT</h2>
     <p style="text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px;">Motor Voltage Drop & Short Circuit Calculation</p>
     
@@ -258,15 +260,6 @@
     </table>
     <p style="font-size: 11px; color: #64748b; margin-top: 10px;">Available SC MVA: <span id="pdf_avail_sc"></span></p>
 </div>
-                    <!-- System Parameters -->
-                    <div class="space-y-3">
-                        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800 pb-1">System Parameters</h3>
-                        <div class="bg-slate-950/30 p-3 rounded border border-slate-800/60 flex justify-between items-center">
-                            <span class="text-xs text-slate-400 uppercase">Available SC MVA</span>
-                            <span id="res_available_sc_mva" class="font-semibold text-white">-- MVA</span>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- DOWNLOAD PDF BUTTON -->
                 <div class="text-center mt-6">
@@ -343,10 +336,10 @@
             }
         });
 
-    function downloadResultsPDF() {
+   function downloadResultsPDF() {
     const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
 
-    // Values ko template ke spans mein fill karein
+    // Values fill karein
     document.getElementById('pdf_project_name').innerText = projectName;
     document.getElementById('pdf_date').innerText = new Date().toLocaleString();
     document.getElementById('pdf_hp').innerText = document.getElementById('motor_power_hp').value;
@@ -371,22 +364,19 @@
     document.getElementById('pdf_avail_sc').innerText = document.getElementById('res_available_sc_mva').innerText;
 
     const reportElement = document.getElementById('pdf-report-template');
-    
-    // Temporarily element ko block display de kar render hone ke kabil banayein (magar screen se bahar ya opacity 0 rakh kar)
-    reportElement.style.display = 'block';
 
-    const options = {
-        margin:       10,
-        filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    // Mobile ke liye thoda waqt dena zaroori hai
+    setTimeout(() => {
+        const options = {
+            margin:       10,
+            filename:     `${projectName.replace(/\s+/g, '_')}_Report.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, logging: false },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
 
-    html2pdf().from(reportElement).set(options).save().then(() => {
-        // Download hone ke baad wapis hide kar dein
-        reportElement.style.display = 'none';
-    });
+        html2pdf().from(reportElement).set(options).save();
+    }, 400);
 }
         
     </script>
