@@ -125,7 +125,6 @@
 
             <!-- RIGHT COLUMN: RESULTS DASHBOARD -->
             <div class="lg:col-span-5 space-y-6">
-                <!-- ID attached here -->
                 <div id="resultsDashboard" class="input-card space-y-6 bg-slate-900/90">
                     <div class="border-b border-slate-800 pb-3">
                         <h2 class="text-lg font-medium text-white">Calculated Results Dashboard</h2>
@@ -291,7 +290,6 @@
         function downloadResultsPDF() {
             const projectName = document.getElementById('project_name').value || 'Motor_Calculation';
             
-            // Gather values from form and dashboard UI
             const data = {
                 projectName: projectName,
                 hp: document.getElementById('motor_power_hp').value,
@@ -316,7 +314,6 @@
                 availSc: document.getElementById('res_available_sc_mva').innerText
             };
 
-            // Create temporary clean layout for professional text-based PDF report
             const reportDiv = document.createElement('div');
             reportDiv.style.padding = '20px';
             reportDiv.style.color = '#000';
